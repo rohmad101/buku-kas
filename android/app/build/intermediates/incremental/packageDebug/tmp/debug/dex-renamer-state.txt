@@ -1,0 +1,4 @@
+#Thu Oct 22 22:41:26 WIB 2020
+base.0=/Users/rohmatdasuki/Documents/AturToko/buku-kas/BukuKas/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

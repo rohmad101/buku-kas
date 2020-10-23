@@ -1,0 +1,6 @@
+module Pods_BukuKas_BukuKasTests {
+  umbrella header "Pods-BukuKas-BukuKasTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
