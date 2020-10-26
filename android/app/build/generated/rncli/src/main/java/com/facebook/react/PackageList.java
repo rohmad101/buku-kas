@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
+// @react-native-community/picker
+import com.reactnativecommunity.picker.RNCPickerPackage;
 // @react-native-community/toolbar-android
 import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
 // react-native-config
@@ -78,6 +80,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
       new RNCMaskedViewPackage(),
+      new RNCPickerPackage(),
       new ReactToolbarPackage(),
       new ReactNativeConfigPackage(),
       new RNDeviceInfo(),

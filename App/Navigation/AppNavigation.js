@@ -1,4 +1,5 @@
 import { createAppContainer } from 'react-navigation'
+import Dashboard from '../Containers/Dashboard'
 import AuthScreen from '../Containers/AuthScreen'
 import MiddlewareScreen from '../Containers/MiddlewareScreen'
 import { createStackNavigator } from 'react-navigation-stack';
@@ -9,6 +10,7 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
   AuthScreen: { screen: AuthScreen },
+  Dashboard: { screen: Dashboard },
   MiddlewareScreen: { screen: MiddlewareScreen },
   LaunchScreen: { screen: LaunchScreen }
 }, {
