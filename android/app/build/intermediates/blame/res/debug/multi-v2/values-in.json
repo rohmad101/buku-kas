@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/BukuKas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-in/values-in.xml",
+            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-in/values-in.xml",
             "map": [
                 {
                     "source": "/Users/rohmatdasuki/.gradle/caches/transforms-2/files-2.1/bb6920b5d9223b517c145067dcc0a042/play-services-gcm-17.0.0/res/values-in/values.xml",

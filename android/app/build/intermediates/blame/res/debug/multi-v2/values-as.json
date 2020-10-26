@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/BukuKas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-as/values-as.xml",
+            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-as/values-as.xml",
             "map": [
                 {
                     "source": "/Users/rohmatdasuki/.gradle/caches/transforms-2/files-2.1/639e914bfc1efa21e36199d3ff2c5eef/core-1.1.0/res/values-as/values-as.xml",

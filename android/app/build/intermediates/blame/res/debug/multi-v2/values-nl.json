@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/BukuKas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
+            "outputFile": "/Users/rohmatdasuki/Documents/AturToko/buku-kas/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
             "map": [
                 {
                     "source": "/Users/rohmatdasuki/.gradle/caches/transforms-2/files-2.1/014560b590ff8f83d7b0b41174a2173d/jetified-play-services-basement-17.0.0/res/values-nl/values.xml",

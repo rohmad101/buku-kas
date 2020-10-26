@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
+// @react-native-community/toolbar-android
+import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
 // react-native-config
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 // react-native-device-info
@@ -76,6 +78,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
       new RNCMaskedViewPackage(),
+      new ReactToolbarPackage(),
       new ReactNativeConfigPackage(),
       new RNDeviceInfo(),
       new RNGestureHandlerPackage(),
