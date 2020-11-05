@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -11,7 +11,7 @@ import styles from './Styles/SettingsStyle'
 
 // I18n
 import I18n from 'react-native-i18n'
-import {  ListItem, Avatar, Accessory , Header, Icon,SocialIcon } from 'react-native-elements'
+import {  ListItem, Avatar, Accessory , Header, Icon,SocialIcon, Image } from 'react-native-elements'
 import { DrawerActions } from 'react-navigation-drawer'
 import { FlatList } from 'react-native-gesture-handler'
 
@@ -108,9 +108,21 @@ class SettingsScreen extends React.Component {
                 </View>
                 <View style={{flexDirection:'row',padding:12,justifyContent:'space-around'}}>
                   <View style={{flexDirection:'column',padding:12}}>
+                    <Image
+                      source={{ uri: 'https://icon-library.com/images/cash-icon-png/cash-icon-png-27.jpg' }}
+                      style={{ width: 40, height: 40 }}
+                      PlaceholderContent={<ActivityIndicator />}
+                      containerStyle={{backgroundColor:'white',borderRadius:24,padding:2}}
+                    />
                     <Text style={{color:'white', fontWeight:'700'}}>Bayar</Text>
                   </View>
                   <View style={{flexDirection:'column',padding:12}}>
+                    <Image
+                        source={{ uri: 'https://image.flaticon.com/icons/png/512/69/69881.png' }}
+                        style={{ width: 40, height: 40 }}
+                        PlaceholderContent={<ActivityIndicator />}
+                        containerStyle={{backgroundColor:'white',borderRadius:24,padding:2}}
+                      />
                     <Text style={{color:'white', fontWeight:'700'}}>Tagih</Text>
                   </View>
                 </View>
