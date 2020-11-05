@@ -40,7 +40,9 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-
+gradle/
+.gradle/
+.idea/
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
@@ -164,7 +166,6 @@ captures/
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
-.android/gradle
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
 
