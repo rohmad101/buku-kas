@@ -301,6 +301,10 @@
         <item name="android:buttonBarStyle">?attr/buttonBarStyle</item>
         <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
     </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:statusBarColor">@color/blue</item>
+    </style>
     <style name="TextAppearance.Compat.Notification" parent="@android:style/TextAppearance.Material.Notification"/>
     <style name="TextAppearance.Compat.Notification.Info" parent="@android:style/TextAppearance.Material.Notification.Info"/>
     <style name="TextAppearance.Compat.Notification.Info.Media">

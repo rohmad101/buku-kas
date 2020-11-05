@@ -27,10 +27,14 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-i18n
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+// react-native-reanimated
+import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 // react-native-screens
 import com.swmansion.rnscreens.RNScreensPackage;
+// react-native-splash-screen
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -86,8 +90,10 @@ public class PackageList {
       new RNDeviceInfo(),
       new RNGestureHandlerPackage(),
       new RNI18nPackage(),
+      new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
+      new SplashScreenReactPackage(),
       new VectorIconsPackage()
     ));
   }

@@ -16,6 +16,8 @@ target 'BukuKas' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'BukuKasTests' do
     inherit! :complete
     # Pods for testing

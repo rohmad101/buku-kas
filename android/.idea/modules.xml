@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BukuKas.iml" filepath="$PROJECT_DIR$/.idea/modules/BukuKas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BukuKas.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BukuKas.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-964023456/BukuKas.react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-964023456/BukuKas.react-native-community_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1557470627/BukuKas.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-1557470627/BukuKas.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2033106136/BukuKas.react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/2033106136/BukuKas.react-native-community_picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/91060435/BukuKas.react-native-community_toolbar-android.iml" filepath="$PROJECT_DIR$/.idea/modules/91060435/BukuKas.react-native-community_toolbar-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-460071634/BukuKas.react-native-config.iml" filepath="$PROJECT_DIR$/.idea/modules/-460071634/BukuKas.react-native-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-612369639/BukuKas.react-native-device-info.iml" filepath="$PROJECT_DIR$/.idea/modules/-612369639/BukuKas.react-native-device-info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1081859814/BukuKas.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-1081859814/BukuKas.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1609635062/BukuKas.react-native-i18n.iml" filepath="$PROJECT_DIR$/.idea/modules/-1609635062/BukuKas.react-native-i18n.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-895306558/BukuKas.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-895306558/BukuKas.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/366172931/BukuKas.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/366172931/BukuKas.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/986780379/BukuKas.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/986780379/BukuKas.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/626184678/BukuKas.react-native-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/626184678/BukuKas.react-native-splash-screen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1296112892/BukuKas.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/1296112892/BukuKas.react-native-vector-icons.iml" />
+    </modules>
+  </component>
+</project>
