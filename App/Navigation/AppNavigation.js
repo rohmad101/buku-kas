@@ -1,13 +1,15 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {DashboardDrawer,HomeDrawer,SettingDrawer} from './Drawer'
 import AuthScreen from '../Containers/AuthScreen'
 import MiddlewareScreen from '../Containers/MiddlewareScreen'
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
+
+
 import LaunchScreen from '../Containers/LaunchScreen'
+import UtangPiutang from '../Containers/UtangPiutang'
 
 import styles from './Styles/NavigationStyles'
 import { Text, View } from 'react-native'
@@ -87,7 +89,8 @@ const PrimaryNav = createStackNavigator({
   AuthScreen: { screen: AuthScreen },
   Dashboard: { screen: TabNavigator },
   MiddlewareScreen: { screen: MiddlewareScreen },
-  LaunchScreen: { screen: LaunchScreen }
+  LaunchScreen: { screen: LaunchScreen },
+  UtangPiutang: {screen: UtangPiutang}
 }, {
   // Default config for all screens
   headerMode: 'none',

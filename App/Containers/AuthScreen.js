@@ -62,11 +62,11 @@ function AuthScreen (props) {
         <View style={{width:width,justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
           <Text 
             style={{width:width*0.4, color:phone.length>5?'blue':'white', backgroundColor:phone.length>5?'white':'grey',textAlign:'center',padding:12, borderRadius:8 , borderColor:phone.length>5?'blue':'white', borderWidth:1}}
-            onPress={()=>navigation.navigate('Dashboard')}
+            onPress={()=>navigation.replace('Dashboard')}
           >SMS</Text>
           <Text 
             style={{width:width*0.4, color:'white', backgroundColor:phone.length>5?'blue':'grey',textAlign:'center',padding:12, borderRadius:8}}
-            onPress={()=> navigation.navigate('Dashboard')}
+            onPress={()=> navigation.replace('Dashboard')}
           >WhatsApp</Text>
         </View>
       </View>

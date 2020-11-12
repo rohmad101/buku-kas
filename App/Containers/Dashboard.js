@@ -1,10 +1,10 @@
 // @flow
 
-import React, { useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, Dimensions, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, Text, KeyboardAvoidingView, Dimensions, Alert, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import DataLocalRedux from '../Redux/DataLocalRedux'
 
 // Styles
 import styles from './Styles/DashboardStyle'
@@ -16,16 +16,26 @@ import { DrawerActions } from 'react-navigation-drawer'
 import { View } from 'react-native-animatable'
 import { TextInput } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
+import { bindActionCreators } from 'redux'
 
 function Dashboard (props){
 const {width,height} = Dimensions.get('screen')
 const [search, setSearch]=useState('')
 const [visibleSearch, setvisibleSearch]=useState(false)
 const [category, setcategory]=useState('semua')
-
+const {data} = props
 const updateSearch = (search) => {
   setSearch( search );
 };
+
+
+// useEffect(
+//   () => {
+//     props.dataLocalSuccess( [{'nama':'Akulaku','nominal':2000000,'jenis':'utang saya'},{'nama':'AkuHantam','nominal':2000000,'jenis':'utang pelanggan'}]
+//     )
+//   },
+//   []
+// );
     return (
       <View style={styles.container}>
       <Header
@@ -43,7 +53,7 @@ const updateSearch = (search) => {
           <View style={{backgroundColor:'#87ceeb', width:width, height:height*0.225, maxHeight:180,borderTopWidth:1, borderColor:'grey',alignItems:'center',justifyContent:'center'}}>
             <View style={{width:width*0.9, height:height*0.18, maxHeight:180, backgroundColor:'white',borderRadius:4}}> 
               <View style={{flexDirection:'row',width:width, padding:12, height:'60%'}}>
-                  <View style={{width:width*0.5}}>
+                  <View style={{width:width*0.45}}>
                     <View style={{flexDirection:'row'}}>
                       <Icon name='trending-down' color='green' />
                       <Text style={{color:'green'}}>Rp 0</Text>
@@ -55,7 +65,7 @@ const updateSearch = (search) => {
                       <Icon name='trending-up' color='red' />
                       <Text style={{color:'red'}}>Rp 0</Text>
                     </View>
-                    <Text style={{color:'red'}}>Total Utang Saya</Text>
+                    <Text style={{color:'red'}}>Total Utang Pelanggan</Text>
                   </View>
               </View> 
               <Divider />
@@ -103,37 +113,59 @@ const updateSearch = (search) => {
             onPress={()=>setcategory('lunas')}
             >Lunas</Text>
           </View>
-          <View style={{width:width, height:height*0.4,justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:20}}>Transaksi Tidak Ditemukan</Text>
-          </View>
+            <View style={{width:width, height:height*0.3,alignItems:'center',marginTop:12}}>
+              
+          <ScrollView>
+              {data && data.length>0?
+              
+                data.map(data=> (
+                    <View style={{width:width,flexDirection:'row',justifyContent:'space-around',alignItems:'center',paddingVertical:12,borderBottomWidth:0.5,borderTopWidth:0.5,borderColor:'whitesmoke'}}>
+                      <Text>{data.nama}</Text>
+                      <View style={{flexDirection:'column',alignItems:'center'}}>
+                        <Text style={{color:data.jenis==='utang saya'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {data.nominal}</Text>
+                        <Text style={{fontSize:10,color:'gray'}}>{data.jenis}</Text>
+                      </View>
+                    </View>
+                    )
+                )
+                :
+                <Text style={{fontSize:20}}>Transaksi Tidak Ditemukan</Text>
+              }
+              </ScrollView>
+            </View>
+            
           {/* <Text>Dashboard Container</Text>
           <Image source={{uri: 'https://media.tenor.com/images/0b258e24e61f1085b16087309aecdc01/tenor.gif'}} style={{width:200,height:200}}/> */}
         </KeyboardAvoidingView>
         </ScrollView>
-        <View style={{
-          position:'absolute',bottom:10,right:5,
-          width:200,height:50,backgroundColor:'#FBB117',
-          borderRadius:20,justifyContent:'center',alignItems:'center'
-          }}>
-            <Text
-              style={{
-                color:"white", fontSize:16, fontWeight:'600'
-              }}>
-             +  UTANG PIUTANG
-             </Text>
-        </View>
+        <TouchableOpacity
+          onPress={()=> props.navigation.navigate('UtangPiutang')}
+         style={{
+            position:'absolute',bottom:10,right:5,
+            width:200,height:50,backgroundColor:'#FBB117',
+            borderRadius:20,justifyContent:'center',alignItems:'center'
+            }}>
+              <Text
+                style={{
+                  color:"white", fontSize:16, fontWeight:'600'
+                }}>
+              +  UTANG PIUTANG
+              </Text>
+        </TouchableOpacity>
+        
       </View>
     )
 }
 
 const mapStateToProps = (state) => {
+  console.log('w',state.local.payload)
   return {
+    data: state.local.payload
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(Object.assign(DataLocalRedux),dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
