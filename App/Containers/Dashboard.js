@@ -31,10 +31,9 @@ const updateSearch = (search) => {
 
 // useEffect(
 //   () => {
-//     props.dataLocalSuccess( [{'nama':'Akulaku','nominal':2000000,'jenis':'utang saya'},{'nama':'AkuHantam','nominal':2000000,'jenis':'utang pelanggan'}]
-//     )
+//     props.dataLocalSuccess([])
 //   },
-//   []
+//   [data]
 // );
     return (
       <View style={styles.container}>
@@ -118,14 +117,42 @@ const updateSearch = (search) => {
           <ScrollView>
               {data && data.length>0?
               
-                data.map(data=> (
-                    <View style={{width:width,flexDirection:'row',justifyContent:'space-around',alignItems:'center',paddingVertical:12,borderBottomWidth:0.5,borderTopWidth:0.5,borderColor:'whitesmoke'}}>
-                      <Text>{data.nama}</Text>
+                data.map((dat,index)=> (
+                    <TouchableOpacity 
+                    onLongPress={()=> {
+                      Alert.alert(
+                        "Delete",
+                         "Apakah anda yakin menghapus catatan: "+dat.nama,
+                        [
+                          {
+                            text: "Cancel",
+                            // onPress: () => console.log("Cancel Pressed"),
+                            style: "danger"
+                          },
+                          { text: "OK", onPress: () =>{
+                            let list = data 
+                            let temp = []
+                            list.map((tempdata,idx) =>{
+                              if(index !== idx){
+                                temp.push(tempdata)
+                              }
+                            })
+                            // alert(JSON.stringify(temp))
+                            props.dataLocalSuccess(temp)
+                          } }
+                        ],
+                        { cancelable: false }
+                      )
+                     
+                    }}
+                    style={{width:width,flexDirection:'row',justifyContent:'space-around',alignItems:'center',paddingVertical:12,borderBottomWidth:0.5,borderTopWidth:0.5,borderColor:'whitesmoke'}}>
+                      <Text style={{width:40,height:40,backgroundColor:'blue',textAlign:'center',textAlignVertical:'center',borderRadius:20,color:'white', fontWeight:'700'}}>{dat.nama.substring(0,1)}</Text>
+                      <Text>{dat.nama}</Text>
                       <View style={{flexDirection:'column',alignItems:'center'}}>
-                        <Text style={{color:data.jenis==='utang saya'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {data.nominal}</Text>
-                        <Text style={{fontSize:10,color:'gray'}}>{data.jenis}</Text>
+                        <Text style={{color:dat.jenis==='utang saya'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {dat.nominal}</Text>
+                        <Text style={{fontSize:10,color:'gray'}}>{dat.jenis}</Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                     )
                 )
                 :
@@ -158,7 +185,7 @@ const updateSearch = (search) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('w',state.local.payload)
+  console.log(state.local.payload)
   return {
     data: state.local.payload
   }

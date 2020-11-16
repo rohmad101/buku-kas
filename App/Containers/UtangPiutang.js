@@ -13,6 +13,7 @@ import styles from './Styles/UtangPiutangStyle'
 import I18n from 'react-native-i18n'
 import { CheckBox, Header, Icon } from 'react-native-elements'
 import { bindActionCreators } from 'redux'
+import { set } from 'lodash'
 
 function UtangPiutang(props) {
 const {width,height}=Dimensions.get('screen')
@@ -20,26 +21,53 @@ const [selected, setselected] = useState('berikan')
 const [pelanggan, setPelanggan] = useState('')
 const [value, onChangeText] = useState('')
 
-const Submit =()=>{
+const Submit = ()=>{
   const {data} = props
+  let val = []
+  let selectedData = []
   if(data.length>0){
-    data.map((dat,index) =>{
-     if( dat.nama === pelanggan ) {
-       let stat = selected ==='berikan'?'utang pelanggan':'utang saya'
-       let nominal = dat.nominal + dat.jenis===stat? value:-value
-       let dataa = {'nama':pelanggan,'nominal':nominal,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}
-       let val = data
-       val[index]=dataa
-        props.dataLocalSuccess(val)
-       props.navigation.goBack()
-     } else {
-       props.dataLocalSuccess([...data,{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
-       props.navigation.goBack()
-      }
+     data.map(dat =>{
+       val.push(dat)
+     })
+     data.map((dat,index) =>{
+     if(dat.nama === pelanggan ) {
+      selectedData.push(dat)
+      selectedData.push(index)
+     }
     })
+    if(selectedData.length>0) {
+      let stat = selected ==='berikan'?'utang pelanggan':'utang saya'
+      let nominal = parseInt(selectedData[0].nominal) + parseInt(selectedData[0].jenis===stat? value:-value)
+      if(nominal<0){
+        nominal = nominal *-1
+      }
+      let stat2= 
+        stat===selectedData[0].jenis? 
+          stat
+        : value>selectedData[0].nominal?
+          stat
+          :stat ==='berikan'?'utang saya':'utang pelanggan'
+          
+      let dataa = {'nama':pelanggan,'nominal':nominal,'jenis':stat2}
+      val[selectedData[1]]=dataa
+      alert(JSON.stringify( selectedData))
+      props.dataLocalSuccess(val)
+      props.navigation.goBack()  
+      selectedData.pop()  
+      selectedData.pop() 
+    }else{
+      props.dataLocalSuccess([...data,{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
+      props.navigation.goBack()
+    }
+  
+
+
+
   }else{
-    props.dataLocalSuccess([{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
-    props.navigation.goBack()
+    if(up){
+      props.dataLocalSuccess([{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
+      props.navigation.goBack()
+    }
   }
 }
     return (
@@ -84,8 +112,6 @@ const Submit =()=>{
           <View style={{flexDirection:'column'}}>
             <TextInput
                 placeholder='Nama Pelanggan'
-                multiline
-                numberOfLines={4}
                 onChangeText={text => setPelanggan(text)}
                 placeholderTextColor={selected==='berikan'?'red':'green'}
                 value={pelanggan}
@@ -129,6 +155,7 @@ const Submit =()=>{
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.local.payload.length)
   return {
     data: state.local.payload
   }
