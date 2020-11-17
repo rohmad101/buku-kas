@@ -50,7 +50,7 @@ const Submit = ()=>{
           
       let dataa = {'nama':pelanggan,'nominal':nominal,'jenis':stat2}
       val[selectedData[1]]=dataa
-      alert(JSON.stringify( selectedData))
+      // alert(JSON.stringify( selectedData))
       props.dataLocalSuccess(val)
       props.navigation.goBack()  
       selectedData.pop()  
@@ -59,15 +59,10 @@ const Submit = ()=>{
       props.dataLocalSuccess([...data,{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
       props.navigation.goBack()
     }
-  
-
-
 
   }else{
-    if(up){
       props.dataLocalSuccess([{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
       props.navigation.goBack()
-    }
   }
 }
     return (

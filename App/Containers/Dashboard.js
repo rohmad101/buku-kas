@@ -145,9 +145,11 @@ const updateSearch = (search) => {
                       )
                      
                     }}
-                    style={{width:width,flexDirection:'row',justifyContent:'space-around',alignItems:'center',paddingVertical:12,borderBottomWidth:0.5,borderTopWidth:0.5,borderColor:'whitesmoke'}}>
-                      <Text style={{width:40,height:40,backgroundColor:'blue',textAlign:'center',textAlignVertical:'center',borderRadius:20,color:'white', fontWeight:'700'}}>{dat.nama.substring(0,1)}</Text>
-                      <Text>{dat.nama}</Text>
+                    style={{width:width,flexDirection:'row',justifyContent:'space-between',alignItems:'center',padding:12,borderBottomWidth:0.5,borderTopWidth:0.5,borderColor:'whitesmoke'}}>
+                      <View style={{flexDirection:'row',alignItems:'center'}}>
+                        <Text style={{width:40,height:40,backgroundColor:'blue',textAlign:'center',textAlignVertical:'center',borderRadius:20,color:'white', fontWeight:'700',marginRight:12}}>{dat.nama.substring(0,1)}</Text>
+                        <Text>{dat.nama}</Text>
+                      </View>
                       <View style={{flexDirection:'column',alignItems:'center'}}>
                         <Text style={{color:dat.jenis==='utang saya'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {dat.nominal}</Text>
                         <Text style={{fontSize:10,color:'gray'}}>{dat.jenis}</Text>
