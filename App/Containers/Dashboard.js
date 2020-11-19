@@ -119,6 +119,10 @@ const updateSearch = (search) => {
               
                 data.map((dat,index)=> (
                     <TouchableOpacity 
+                    onPress={()=>{
+                      props.navigation.navigate('DetailCatatanScreen',{params:dat})
+                    }}
+                    //long pressed
                     onLongPress={()=> {
                       Alert.alert(
                         "Delete",

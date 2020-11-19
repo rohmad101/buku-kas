@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, ActivityIndicator, Dimensions } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView, View, ActivityIndicator, Dimensions, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import {Picker} from '@react-native-community/picker';
 import { Avatar, Accessory, Input } from 'react-native-elements';
@@ -62,11 +62,11 @@ function AuthScreen (props) {
         <View style={{width:width,justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
           <Text 
             style={{width:width*0.4, color:phone.length>5?'blue':'white', backgroundColor:phone.length>5?'white':'grey',textAlign:'center',padding:12, borderRadius:8 , borderColor:phone.length>5?'blue':'white', borderWidth:1}}
-            onPress={()=>navigation.replace('Dashboard')}
+            onPress={()=>phone.length>5?navigation.replace('Dashboard'):Alert.alert('please fill phone number first')}
           >SMS</Text>
           <Text 
             style={{width:width*0.4, color:'white', backgroundColor:phone.length>5?'blue':'grey',textAlign:'center',padding:12, borderRadius:8}}
-            onPress={()=> navigation.replace('Dashboard')}
+            onPress={()=>phone.length>5?navigation.replace('Dashboard'):Alert.alert('please fill phone number first')}
           >WhatsApp</Text>
         </View>
       </View>

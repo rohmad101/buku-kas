@@ -1,10 +1,11 @@
 import Fonts from './Fonts'
 import Metrics from './Metrics'
 import Colors from './Colors'
+import { Dimensions } from 'react-native'
 
 // This file is for a reusable grouping of Theme items.
 // Similar to an XML fragment layout in Android
-
+const { height, width } = Dimensions.get('screen')
 const ApplicationStyles = {
   screen: {
     mainContainer: {
@@ -20,7 +21,8 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      width:width,
+      height:height
     },
     section: {
       margin: Metrics.section,

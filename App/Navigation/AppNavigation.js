@@ -1,5 +1,6 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
+import DetailCatatanScreen from '../Containers/DetailCatatanScreen'
 import {DashboardDrawer,HomeDrawer,SettingDrawer} from './Drawer'
 import AuthScreen from '../Containers/AuthScreen'
 import MiddlewareScreen from '../Containers/MiddlewareScreen'
@@ -86,6 +87,7 @@ const TabNavigator = createMaterialTopTabNavigator({
 });
 
 const PrimaryNav = createStackNavigator({
+  DetailCatatanScreen: { screen: DetailCatatanScreen },
   AuthScreen: { screen: AuthScreen },
   Dashboard: { screen: TabNavigator },
   MiddlewareScreen: { screen: MiddlewareScreen },
@@ -94,7 +96,7 @@ const PrimaryNav = createStackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Dashboard',
+  initialRouteName: 'AuthScreen',
   navigationOptions: {
     headerStyle: styles.header
   },
