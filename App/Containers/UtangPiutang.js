@@ -30,25 +30,51 @@ const Submit = ()=>{
        val.push(dat)
      })
      data.map((dat,index) =>{
-     if(dat.nama === pelanggan ) {
+     if(dat.nama === pelanggan.trim() ) {
       selectedData.push(dat)
       selectedData.push(index)
      }
     })
     if(selectedData.length>0) {
-      let stat = selected ==='berikan'?'utang pelanggan':'utang saya'
-      let nominal = parseInt(selectedData[0].nominal) + parseInt(selectedData[0].jenis===stat? value:-value)
+      let stat = selected 
+      let nominal = parseInt(selectedData[0].nominal) + parseInt(selectedData[0].jenis===stat? parseInt(value):-parseInt(value))
       if(nominal<0){
         nominal = nominal *-1
       }
-      let stat2= 
-        stat===selectedData[0].jenis? 
-          stat
-        : value>selectedData[0].nominal?
-          stat
-          :stat ==='berikan'?'utang saya':'utang pelanggan'
-          
-      let dataa = {'nama':pelanggan,'nominal':nominal,'jenis':stat2}
+
+      let stat2= stat===selectedData[0].jenis? 
+        stat
+        : parseInt(value)>parseInt(selectedData[0].nominal)?
+        stat
+        :stat ==='berikan'?'terima':'berikan'
+
+      let his = selectedData.length>0 ? 
+          [
+            ...selectedData[0].history,
+            {
+              'nama':pelanggan.trim(),
+              'nominal':value,
+              'jenis':stat,
+              'dateInput':new Date().toLocaleDateString()
+            }
+          ]
+      : [
+        {
+          'nama':pelanggan.trim(),
+          'nominal':value,
+          'jenis':stat,
+          'dateInput':new Date().toLocaleDateString()
+        }
+      ]  
+      let dataa = {
+        'nama':pelanggan.trim(),
+        'nominal':nominal,
+        'jenis':stat2, 
+        'history':his,
+        'firstUpdata':selectedData.length>0 ? selectedData[0].firstUpdata:new Date().toLocaleDateString(),
+        'lastUpdate':new Date().toLocaleDateString(),
+        
+      }
       val[selectedData[1]]=dataa
       // alert(JSON.stringify( selectedData))
       props.dataLocalSuccess(val)
@@ -56,12 +82,45 @@ const Submit = ()=>{
       selectedData.pop()  
       selectedData.pop() 
     }else{
-      props.dataLocalSuccess([...data,{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
+      props.dataLocalSuccess([
+        ...data,
+        {
+          'nama':pelanggan.trim(),
+          'nominal':value,
+          'jenis':selected,
+          history:[
+            {
+              'nama':pelanggan.trim(),
+              'nominal':value,
+              'jenis':selected,
+              'dateInput':new Date().toLocaleDateString()
+            }
+          ],
+          firstUpdata:new Date().toLocaleDateString(),
+          lastUpdate:new Date().toLocaleDateString(),
+        }
+      ])
       props.navigation.goBack()
     }
 
   }else{
-      props.dataLocalSuccess([{'nama':pelanggan,'nominal':value,'jenis':selected==='berikan'?'utang pelanggan':'utang saya'}])
+      props.dataLocalSuccess([
+        {
+          'nama':pelanggan.trim(),
+          'nominal':value ,
+          'jenis':selected,
+          history:[
+            {
+              'nama':pelanggan.trim(),
+              'nominal':value,
+              'jenis':selected,
+              'dateInput':new Date().toLocaleDateString()
+            }
+          ],
+          firstUpdata:new Date().toLocaleDateString(),
+          lastUpdate:new Date().toLocaleDateString(),
+        }
+      ])
       props.navigation.goBack()
   }
 }
@@ -150,7 +209,6 @@ const Submit = ()=>{
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.local.payload.length)
   return {
     data: state.local.payload
   }

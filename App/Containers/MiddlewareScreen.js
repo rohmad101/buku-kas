@@ -10,8 +10,9 @@ import styles from './Styles/MiddlewareScreenStyle'
 class MiddlewareScreen extends Component {
   componentDidMount(){
     setTimeout(() => {
-      this.props.navigation.replace('AuthScreen')
-    }, 5000);
+      const {getParam}=this.props.navigation
+      this.props.navigation.replace(getParam('param')?getParam('param'):'AuthScreen')
+    }, 1000);
   }
   render () {
     const { width, heigth } = Dimensions.get('screen')

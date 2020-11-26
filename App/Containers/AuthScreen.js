@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, ActivityIndicator, Dimensions, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, View, Dimensions, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import {Picker} from '@react-native-community/picker';
 import { Avatar, Accessory, Input } from 'react-native-elements';
@@ -8,10 +8,25 @@ import { Avatar, Accessory, Input } from 'react-native-elements';
 
 // Styles
 import styles from './Styles/AuthScreenStyle'
+import AsyncStorage from '@react-native-community/async-storage';
 
 function AuthScreen (props) {
   const [selectedValue, setselectedValue]=useState('Indonesia')
   const [phone, setphone]=useState('')
+  const { navigation } =props
+
+  useEffect(()=>{
+    AsyncStorage.getItem('PhoneNumber')
+    .then(rr=>{
+      if(rr !== null) {
+        // value previously stored
+        navigation.replace('MiddlewareScreen',{param:'Dashboard'})
+        // alert(value)
+      }
+    })
+    .catch(cc=> alert('errr'+cc))
+    
+  },[])
     ContentHeader=()=>{
     return (
       <View>
@@ -32,8 +47,12 @@ function AuthScreen (props) {
       </View>
     )
   }
+
+  Submit= ()=>{
+    AsyncStorage.setItem('PhoneNumber',phone)
+    navigation.replace('MiddlewareScreen',{param:'Dashboard'})
+  }
     const { width, heigth } = Dimensions.get('screen')
-    const { navigation } =props
     return (
       <View style={{flex:1,width:width, heigth:heigth, justifyContent: 'center',padding:12}}>
         {ContentHeader()}
@@ -62,11 +81,11 @@ function AuthScreen (props) {
         <View style={{width:width,justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
           <Text 
             style={{width:width*0.4, color:phone.length>5?'blue':'white', backgroundColor:phone.length>5?'white':'grey',textAlign:'center',padding:12, borderRadius:8 , borderColor:phone.length>5?'blue':'white', borderWidth:1}}
-            onPress={()=>phone.length>5?navigation.replace('Dashboard'):Alert.alert('please fill phone number first')}
+            onPress={()=>phone.length>5?Submit():Alert.alert('please fill phone number first')}
           >SMS</Text>
           <Text 
             style={{width:width*0.4, color:'white', backgroundColor:phone.length>5?'blue':'grey',textAlign:'center',padding:12, borderRadius:8}}
-            onPress={()=>phone.length>5?navigation.replace('Dashboard'):Alert.alert('please fill phone number first')}
+            onPress={()=>phone.length>5?Submit():Alert.alert('please fill phone number first')}
           >WhatsApp</Text>
         </View>
       </View>

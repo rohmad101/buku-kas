@@ -155,7 +155,7 @@ const updateSearch = (search) => {
                         <Text>{dat.nama}</Text>
                       </View>
                       <View style={{flexDirection:'column',alignItems:'center'}}>
-                        <Text style={{color:dat.jenis==='utang saya'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {dat.nominal}</Text>
+                        <Text style={{color:dat.jenis==='terima'?'green':'red', fontSize:16,fontWeight:'700'}}>Rp. {dat.nominal}</Text>
                         <Text style={{fontSize:10,color:'gray'}}>{dat.jenis}</Text>
                       </View>
                     </TouchableOpacity>
@@ -191,7 +191,7 @@ const updateSearch = (search) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.local.payload)
+  // console.log(state.local.payload[0].history)
   return {
     data: state.local.payload
   }
