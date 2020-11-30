@@ -61,7 +61,7 @@ function HomeScreen (props) {
           leftComponent={<Icon name='menu' color='white' onPress={()=>this.props.navigation.dispatch(DrawerActions.openDrawer())}/>}
           centerComponent={{ text: 'Home', style: { color: '#fff' } }}
         />
-        <View style={{borderWidth:0.5,borderRadius:8,width:width*0.9,height:200, marginTop:24, borderColor:'gray',alignItems:'center',justifyContent:'space-around',padding:12}}>
+        <View style={{borderWidth:0.5,borderRadius:8,width:width*0.95,height:200, marginTop:24, borderColor:'gray',alignItems:'center',justifyContent:'space-around',padding:12,marginBottom:20}}>
           <View style={{flexDirection:'row',width:width*0.9,alignItems:'center',padding:12}}>
             <View style={{width:width*0.45,alignItems:'center',justifyContent:'space-around'}}>
               <Text style={{fontSize:10}}>Pemasukan</Text>
@@ -76,16 +76,18 @@ function HomeScreen (props) {
               <Text style={{color:pemasukan-pengeluaran<0?'red':'#3bff9d', fontWeight:'700'}}>Untung</Text>
               <Text style={{color:pemasukan-pengeluaran<0?'red':'#3bff9d', fontWeight:'700'}}>Rp. {pemasukan-pengeluaran}</Text>
           </View>
-          <View style={{flexDirection:'row',width:width*0.9,alignItems:'center',justifyContent:'space-between',padding:12}}>
-              <View style={{flexDirection:'row'}}>
+          <TouchableOpacity 
+          onPress={()=> props.navigation.navigate('DetailLaporanScreen')}
+          style={{flexDirection:'row',width:width*0.9,alignItems:'center',justifyContent:'space-between',padding:12}}>
+              <View style={{flexDirection:'row',alignItems:'center'}}>
                 <Icon name='menu' color='black' style={{paddingHorizontal:12}}/>
                 <Text style={{fontSize:12}}>Lihat Laporan Keuangan</Text>
               </View>
-              <Text>{'>'}</Text>
-          </View>
+              <Icon name='arrow-right' color='black' onPress={()=>props.navigation.navigate('DetailLaporanScreen')}/>
+          </TouchableOpacity>
         </View>
         <ScrollView>
-          <View style={{width:width, height:height*0.7}}>
+          <View style={{width:width, height:height*0.4, marginBottom:400}}>
             {
               data.map((data,ix) =>{
                 let current = data.history[0].dateInput

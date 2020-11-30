@@ -1,5 +1,6 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
+import DetailLaporanScreen from '../Containers/DetailLaporanScreen'
 import DetailCatatanScreen from '../Containers/DetailCatatanScreen'
 import {DashboardDrawer,HomeDrawer,SettingDrawer} from './Drawer'
 import AuthScreen from '../Containers/AuthScreen'
@@ -87,6 +88,7 @@ const TabNavigator = createMaterialTopTabNavigator({
 });
 
 const PrimaryNav = createStackNavigator({
+  DetailLaporanScreen: { screen: DetailLaporanScreen },
   DetailCatatanScreen: { screen: DetailCatatanScreen },
   AuthScreen: { screen: AuthScreen },
   Dashboard: { screen: TabNavigator },
