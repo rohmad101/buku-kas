@@ -86,12 +86,12 @@ function HomeScreen (props) {
               <Icon name='arrow-right' color='black' onPress={()=>props.navigation.navigate('DetailLaporanScreen')}/>
           </TouchableOpacity>
         </View>
-        <ScrollView>
-          <View style={{width:width, height:height*0.4, marginBottom:400}}>
+          <View style={{width:width, height:height*0.45}}>
+          <ScrollView>
             {
-              data.map((data,ix) =>{
-                let current = data.history[0].dateInput
-                return data.history.map((dat,index) =>{      
+              data.map((dataa,ix) =>{
+                let current = dataa.history[0].dateInput
+                return dataa.history.map((dat,index) =>{      
                   return(
                   <View style={{flexDirection:'column',width:width,paddingTop:12}}>
                     {index===0 && current === dat.dateInput?
@@ -119,16 +119,19 @@ function HomeScreen (props) {
                         <Text style={{color:'red'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
                       </View>
                     </View>
-                    
+                    {data.length === ix+1?
+                    <View style={{height:80}}></View>:null
+                    }
                   </View>
                   )
                  
                 })
               })
             }
+            
+          </ScrollView>
             {/* <Text>{history}</Text> */}
           </View>
-          </ScrollView>
          {/* floating button at bottom */}
          <TouchableOpacity
           onPress={()=> props.navigation.navigate('UtangPiutang')}

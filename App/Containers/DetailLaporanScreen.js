@@ -73,6 +73,26 @@ function DetailLaporanScreen (props) {
           centerComponent={{ text: 'Detail Laporan Catatan', style: { color: '#fff', fontSize:20, fontWeight:'700' } }}
 
         />
+        {showStartDate && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={startdate}
+            mode={'date'}
+            is24Hour={true}
+            display="default"
+            onChange={onChangeStart}
+          />
+        )}
+        {showEndDate && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={enddate}
+            mode={'date'}
+            is24Hour={true}
+            display="default"
+            onChange={onChangeEnd}
+          />
+        )}
         <View style={{borderWidth:0.5,borderRadius:8,width:width*0.95,height:200, marginTop:12, borderColor:'gray',alignItems:'center',justifyContent:'space-around',padding:12,marginBottom:20}}>
           <View style={{flexDirection:'row',width:width*0.9,alignItems:'center',padding:12}}>
             <View style={{width:width*0.45,alignItems:'center',justifyContent:'space-around'}}>
@@ -116,10 +136,9 @@ function DetailLaporanScreen (props) {
               <Text style={{width:width*0.4,textAlign:'center',paddingVertical:12, backgroundColor:'#deffee',color:'#3bff9d',fontWeight:'700'}}>Pemasukan</Text>
               <Text style={{width:width*0.3,textAlign:'center',paddingVertical:12,color:'red',fontWeight:'700'}}>Pengeluaran</Text>
             </View>
-        <ScrollView>
-        <View style={{width:width, height:height*0.2, marginBottom:400}}>
-          <View style={{flexDirection:'column',width:width}}>
-
+       
+          <View style={{width:width, height:height*0.35,flexDirection:'column',width:width}}>
+          <ScrollView>
               {
                 data.map((data,ix) =>{
                   return data.history.map((dat,index) =>{    
@@ -144,29 +163,9 @@ function DetailLaporanScreen (props) {
                   })
                 })
               }
-          </View>
-        </View>
+              
         </ScrollView>
-       {showStartDate && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={startdate}
-          mode={'date'}
-          is24Hour={true}
-          display="default"
-          onChange={onChangeStart}
-        />
-      )}
-       {showEndDate && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={enddate}
-          mode={'date'}
-          is24Hour={true}
-          display="default"
-          onChange={onChangeEnd}
-        />
-      )}
+          </View>
       </View>
     )
 }

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, TouchableOpacity, TextInput } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
@@ -25,104 +25,109 @@ const Submit = ()=>{
   const {data} = props
   let val = []
   let selectedData = []
-  if(data.length>0){
-     data.map(dat =>{
-       val.push(dat)
+  if(pelanggan && value){
+    if(data.length>0){
+      data.map(dat =>{
+        val.push(dat)
+      })
+      data.map((dat,index) =>{
+      if(dat.nama === pelanggan.trim() ) {
+       selectedData.push(dat)
+       selectedData.push(index)
+      }
      })
-     data.map((dat,index) =>{
-     if(dat.nama === pelanggan.trim() ) {
-      selectedData.push(dat)
-      selectedData.push(index)
+     if(selectedData.length>0) {
+       let stat = selected 
+       let nominal = parseInt(selectedData[0].nominal) + parseInt(selectedData[0].jenis===stat? parseInt(value):-parseInt(value))
+       if(nominal<0){
+         nominal = nominal *-1
+       }
+ 
+       let stat2= stat===selectedData[0].jenis? 
+         stat
+         : parseInt(value)>parseInt(selectedData[0].nominal)?
+         stat
+         :stat ==='berikan'?'terima':'berikan'
+ 
+       let his = selectedData.length>0 ? 
+           [
+             ...selectedData[0].history,
+             {
+               'nama':pelanggan.trim(),
+               'nominal':value,
+               'jenis':stat,
+               'dateInput':new Date().toLocaleDateString()
+             }
+           ]
+       : [
+         {
+           'nama':pelanggan.trim(),
+           'nominal':value,
+           'jenis':stat,
+           'dateInput':new Date().toLocaleDateString()
+         }
+       ]  
+       let dataa = {
+         'nama':pelanggan.trim(),
+         'nominal':nominal,
+         'jenis':stat2, 
+         'history':his,
+         'firstUpdata':selectedData.length>0 ? selectedData[0].firstUpdata:new Date().toLocaleDateString(),
+         'lastUpdate':new Date().toLocaleDateString(),
+         
+       }
+       val[selectedData[1]]=dataa
+       // alert(JSON.stringify( selectedData))
+       props.dataLocalSuccess(val)
+       props.navigation.goBack()  
+       selectedData.pop()  
+       selectedData.pop() 
+     }else{
+       props.dataLocalSuccess([
+         ...data,
+         {
+           'nama':pelanggan.trim(),
+           'nominal':value,
+           'jenis':selected,
+           history:[
+             {
+               'nama':pelanggan.trim(),
+               'nominal':value,
+               'jenis':selected,
+               'dateInput':new Date().toLocaleDateString()
+             }
+           ],
+           firstUpdata:new Date().toLocaleDateString(),
+           lastUpdate:new Date().toLocaleDateString(),
+         }
+       ])
+       props.navigation.goBack()
      }
-    })
-    if(selectedData.length>0) {
-      let stat = selected 
-      let nominal = parseInt(selectedData[0].nominal) + parseInt(selectedData[0].jenis===stat? parseInt(value):-parseInt(value))
-      if(nominal<0){
-        nominal = nominal *-1
-      }
-
-      let stat2= stat===selectedData[0].jenis? 
-        stat
-        : parseInt(value)>parseInt(selectedData[0].nominal)?
-        stat
-        :stat ==='berikan'?'terima':'berikan'
-
-      let his = selectedData.length>0 ? 
-          [
-            ...selectedData[0].history,
-            {
-              'nama':pelanggan.trim(),
-              'nominal':value,
-              'jenis':stat,
-              'dateInput':new Date().toLocaleDateString()
-            }
-          ]
-      : [
-        {
-          'nama':pelanggan.trim(),
-          'nominal':value,
-          'jenis':stat,
-          'dateInput':new Date().toLocaleDateString()
-        }
-      ]  
-      let dataa = {
-        'nama':pelanggan.trim(),
-        'nominal':nominal,
-        'jenis':stat2, 
-        'history':his,
-        'firstUpdata':selectedData.length>0 ? selectedData[0].firstUpdata:new Date().toLocaleDateString(),
-        'lastUpdate':new Date().toLocaleDateString(),
-        
-      }
-      val[selectedData[1]]=dataa
-      // alert(JSON.stringify( selectedData))
-      props.dataLocalSuccess(val)
-      props.navigation.goBack()  
-      selectedData.pop()  
-      selectedData.pop() 
-    }else{
-      props.dataLocalSuccess([
-        ...data,
-        {
-          'nama':pelanggan.trim(),
-          'nominal':value,
-          'jenis':selected,
-          history:[
-            {
-              'nama':pelanggan.trim(),
-              'nominal':value,
-              'jenis':selected,
-              'dateInput':new Date().toLocaleDateString()
-            }
-          ],
-          firstUpdata:new Date().toLocaleDateString(),
-          lastUpdate:new Date().toLocaleDateString(),
-        }
-      ])
-      props.navigation.goBack()
-    }
-
+ 
+   }else{
+       props.dataLocalSuccess([
+         {
+           'nama':pelanggan.trim(),
+           'nominal':value ,
+           'jenis':selected,
+           history:[
+             {
+               'nama':pelanggan.trim(),
+               'nominal':value,
+               'jenis':selected,
+               'dateInput':new Date().toLocaleDateString()
+             }
+           ],
+           firstUpdata:new Date().toLocaleDateString(),
+           lastUpdate:new Date().toLocaleDateString(),
+         }
+       ])
+       props.navigation.goBack()
+   }
   }else{
-      props.dataLocalSuccess([
-        {
-          'nama':pelanggan.trim(),
-          'nominal':value ,
-          'jenis':selected,
-          history:[
-            {
-              'nama':pelanggan.trim(),
-              'nominal':value,
-              'jenis':selected,
-              'dateInput':new Date().toLocaleDateString()
-            }
-          ],
-          firstUpdata:new Date().toLocaleDateString(),
-          lastUpdate:new Date().toLocaleDateString(),
-        }
-      ])
-      props.navigation.goBack()
+    Alert.alert('ERROR', 'Mohon isi form di bawa terlebih dahulu')
   }
+  
 }
     return (
       <View style={[{height:height,width:width,flexDirection:'column',alignItems:'center'}]}>
