@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-community/picker'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {  Dimensions, Text, TouchableOpacity, View,ScrollView } from 'react-native'
 import { Button, ButtonGroup, Header, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -16,13 +16,82 @@ function DetailLaporanScreen (props) {
   const [pengeluaran,setpengeluaran]=useState(0)
   const {width,height}=Dimensions.get('screen')
   const [selectedValue, setSelectedValue] = useState("Semua");
-  const [sum, setsum] = useState([])
+  const [sum, setsum] = useState(0)
   const [startdate, setstartdate] = useState(new Date());
   const [enddate, setenddate] = useState(new Date());
   const [showStartDate, setShowStartDate] = useState(false);
   const [showEndDate, setshowEndDate] = useState(false);
   const [selectedIndex,setselectedIndex] = useState(0)
   const { data }= props
+
+  useEffect(()=>{
+    setpemasukan(0)
+    setpengeluaran(0)
+  },[])
+  useEffect(()=>{
+    let masuk =0
+    let keluar = 0
+    let sums = []
+    let sumMins=0
+    let sumIncs=0
+       data.map((data,index) =>{
+        data.history.map(dat =>{
+          if(selectedValue==='Semua'){
+              if(dat.jenis ==="terima") {
+                // setpemasukan(pemasukan+dat.nominal)
+                masuk += parseInt(dat.nominal)
+                sumIncs +=parseInt(dat.nominal)
+              }else{
+                keluar += parseInt(dat.nominal)
+                sumMins +=parseInt(dat.nominal)
+            }
+          }
+          if(selectedValue==='Tanggal'){
+            if(enddate.toLocaleDateString()>=dat.dateInput && dat.dateInput>=startdate.toLocaleDateString()){
+              if(dat.jenis ==="terima") {
+                // setpemasukan(pemasukan+dat.nominal)
+                masuk += parseInt(dat.nominal)
+                sumIncs +=parseInt(dat.nominal)
+              }else{
+                keluar += parseInt(dat.nominal)
+                sumMins +=parseInt(dat.nominal)
+              }
+            }
+          }
+          if(selectedValue==='Bulan'){
+            if((startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)){
+              if(dat.jenis ==="terima") {
+                // setpemasukan(pemasukan+dat.nominal)
+                masuk += parseInt(dat.nominal)
+                sumIncs +=parseInt(dat.nominal)
+              }else{
+                keluar += parseInt(dat.nominal)
+                sumMins +=parseInt(dat.nominal)
+              }
+            }
+          }
+          if(selectedValue==='Tahun'){
+            if(startdate <=new Date(dat.dateInput).getFullYear()<=enddate.getFullYear()){
+              if(dat.jenis ==="terima") {
+                // setpemasukan(pemasukan+dat.nominal)
+                masuk += parseInt(dat.nominal)
+                sumIncs +=parseInt(dat.nominal)
+              }else{
+                keluar += parseInt(dat.nominal)
+                sumMins +=parseInt(dat.nominal)
+              }
+            }
+          }
+         
+        })
+        sums.push(sumIncs-sumMins)
+        sumIncs = 0
+        sumMins=0
+      })
+      setsum(sums)
+      setpemasukan(masuk)
+      setpengeluaran(keluar)
+  },[data,selectedValue,startdate,enddate])
 
 
 
@@ -118,6 +187,9 @@ function DetailLaporanScreen (props) {
               
             >
               <Picker.Item label="Semua" value="Semua" />
+              <Picker.Item label="Tanggal" value="Tanggal" />
+              <Picker.Item label="Bulan" value="Bulan" />
+              <Picker.Item label="Tahun" value="Tahun" />
             </Picker>
         </View>
         <View style={{flexDirection:'row'}}>
@@ -141,23 +213,80 @@ function DetailLaporanScreen (props) {
           <ScrollView>
               {
                 data.map((data,ix) =>{
-                  return data.history.map((dat,index) =>{    
-                    if(enddate.toLocaleDateString()>=dat.dateInput && dat.dateInput>=startdate.toLocaleDateString()){
-                      return(
-                        <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
-                          <View style={{width:width*0.3,alignItems:'center'}}>
-                            <Text style={{fontWeight:'700'}}>{dat.nama}</Text>
-                            <Text style={{fontSize:10}}>{dat.dateInput}</Text>
+                  return data.history.map((dat,index) =>{ 
+                    if(selectedValue==='Semua'){
+                        return(
+                          <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{fontWeight:'700'}}>{dat.nama}</Text>
+                              <Text style={{fontSize:10}}>{dat.dateInput}</Text>
+                            </View>
+                            <View style={{width:width*0.4,alignItems:'center',backgroundColor:'#deffee', paddingVertical:24}}>
+                              <Text style={{color:'#3bff9d',fontWeight:'bold'}}>{dat.jenis==='terima'? dat.nominal:'-'}</Text>
+                            </View>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{color:'red',fontWeight:'bold'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
+                            </View>
                           </View>
-                          <View style={{width:width*0.4,alignItems:'center',backgroundColor:'#deffee', paddingVertical:24}}>
-                            <Text style={{color:'#3bff9d',fontWeight:'bold'}}>{dat.jenis==='terima'? dat.nominal:'-'}</Text>
+                        )
+                    }   
+                    if(selectedValue==='Tanggal'){
+                      if(enddate.toLocaleDateString()>=dat.dateInput && dat.dateInput>=startdate.toLocaleDateString()){
+                        return(
+                          <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{fontWeight:'700'}}>{dat.nama}</Text>
+                              <Text style={{fontSize:10}}>{dat.dateInput}</Text>
+                            </View>
+                            <View style={{width:width*0.4,alignItems:'center',backgroundColor:'#deffee', paddingVertical:24}}>
+                              <Text style={{color:'#3bff9d',fontWeight:'bold'}}>{dat.jenis==='terima'? dat.nominal:'-'}</Text>
+                            </View>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{color:'red',fontWeight:'bold'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
+                            </View>
                           </View>
-                          <View style={{width:width*0.3,alignItems:'center'}}>
-                            <Text style={{color:'red',fontWeight:'bold'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
+                        )
+                      }
+                    }
+                    if(selectedValue==='Bulan'){
+                      
+                      if(startdate <=new Date(dat.dateInput).getFullYear()<=enddate.getFullYear()){
+                        if((startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)){
+                          return(
+                            <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
+                              <View style={{width:width*0.3,alignItems:'center'}}>
+                                <Text style={{fontWeight:'700'}}>{dat.nama}</Text>
+                                <Text style={{fontSize:10}}>{dat.dateInput}</Text>
+                              </View>
+                              <View style={{width:width*0.4,alignItems:'center',backgroundColor:'#deffee', paddingVertical:24}}>
+                                <Text style={{color:'#3bff9d',fontWeight:'bold'}}>{dat.jenis==='terima'? dat.nominal:'-'}</Text>
+                              </View>
+                              <View style={{width:width*0.3,alignItems:'center'}}>
+                                <Text style={{color:'red',fontWeight:'bold'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
+                              </View>
+                            </View>
+                          )
+                        }
+                      }
+                    }
+                    if(selectedValue==='Tahun'){
+                      if(startdate.getFullYear() <=new Date(dat.dateInput).getFullYear() && new Date(dat.dateInput).getFullYear()<=enddate.getFullYear()){
+                        return(
+                          <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{fontWeight:'700'}}>{dat.nama}</Text>
+                              <Text style={{fontSize:10}}>{dat.dateInput}</Text>
+                            </View>
+                            <View style={{width:width*0.4,alignItems:'center',backgroundColor:'#deffee', paddingVertical:24}}>
+                              <Text style={{color:'#3bff9d',fontWeight:'bold'}}>{dat.jenis==='terima'? dat.nominal:'-'}</Text>
+                            </View>
+                            <View style={{width:width*0.3,alignItems:'center'}}>
+                              <Text style={{color:'red',fontWeight:'bold'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
+                            </View>
                           </View>
-                        </View>
-                      )
-                    }  
+                        )
+                      }
+                    } 
                     
                   
                   })

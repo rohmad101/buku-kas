@@ -174,7 +174,7 @@ const Submit = ()=>{
                 onChangeText={text => setPelanggan(text)}
                 placeholderTextColor={selected==='berikan'?'red':'green'}
                 value={pelanggan}
-                editable
+                numberOfLines={1}
                 maxLength={40}
                 style={{borderBottomWidth:0.7, width:width*0.75,height:48,color:selected==='berikan'?'red':'green',fontSize:24}}
               />
@@ -190,13 +190,11 @@ const Submit = ()=>{
             <Text style={{fontSize:12}}>{selected==='berikan'?'Memberikan':'Menerima'}</Text>
             <TextInput
               placeholder='0'
-              multiline
-              numberOfLines={4}
               onChangeText={text => onChangeText(text)}
               keyboardType='numeric'
               placeholderTextColor={selected==='berikan'?'red':'green'}
               value={value}
-              editable
+              numberOfLines={1}
               maxLength={12}
               style={{borderBottomWidth:0.7, width:width*0.75,height:48,color:selected==='berikan'?'red':'green',fontSize:24}}
             />

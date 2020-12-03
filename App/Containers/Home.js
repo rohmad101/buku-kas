@@ -58,7 +58,7 @@ function HomeScreen (props) {
       <View style={[styles.container,{alignItems:'center'}]}>
         <Header
           placement="left"
-          leftComponent={<Icon name='menu' color='white' onPress={()=>this.props.navigation.dispatch(DrawerActions.openDrawer())}/>}
+          leftComponent={<Icon name='menu' color='white' onPress={()=>props.navigation.dispatch(DrawerActions.openDrawer())}/>}
           centerComponent={{ text: 'Home', style: { color: '#fff' } }}
         />
         <View style={{borderWidth:0.5,borderRadius:8,width:width*0.95,height:200, marginTop:24, borderColor:'gray',alignItems:'center',justifyContent:'space-around',padding:12,marginBottom:20}}>
@@ -119,16 +119,13 @@ function HomeScreen (props) {
                         <Text style={{color:'red'}}>{dat.jenis==='berikan'? dat.nominal:'-'}</Text>
                       </View>
                     </View>
-                    {data.length === ix+1?
-                    <View style={{height:80}}></View>:null
-                    }
                   </View>
                   )
                  
                 })
               })
             }
-            
+            <View style={{height:80}}></View>
           </ScrollView>
             {/* <Text>{history}</Text> */}
           </View>
