@@ -59,7 +59,11 @@ function DetailLaporanScreen (props) {
             }
           }
           if(selectedValue==='Bulan'){
-            if((startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)){
+            if((startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) 
+                && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)
+                && (startdate.getFullYear()<=new Date(dat.dateInput).getFullYear())
+                && (enddate.getFullYear()>=new Date(dat.dateInput).getFullYear())
+                ){
               if(dat.jenis ==="terima") {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
@@ -71,7 +75,8 @@ function DetailLaporanScreen (props) {
             }
           }
           if(selectedValue==='Tahun'){
-            if(startdate <=new Date(dat.dateInput).getFullYear()<=enddate.getFullYear()){
+            if((startdate.getFullYear()<=new Date(dat.dateInput).getFullYear())
+            && (enddate.getFullYear()>=new Date(dat.dateInput).getFullYear())){
               if(dat.jenis ==="terima") {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
@@ -192,17 +197,18 @@ function DetailLaporanScreen (props) {
               <Picker.Item label="Tahun" value="Tahun" />
             </Picker>
         </View>
-        <View style={{flexDirection:'row'}}>
-          <ButtonGroup
-            onPress={updateIndex}
-            selectedIndex={selectedIndex}
-            buttons={buttons}
-            containerStyle={{height: 50,width:width*0.9}}
-            selectedButtonStyle={{backgroundColor:'white'}}
-            />
-          
-
-        </View>
+        {selectedValue!=='Semua'?
+          <View style={{flexDirection:'row'}}>
+            <ButtonGroup
+              onPress={updateIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              containerStyle={{height: 50,width:width*0.9}}
+              selectedButtonStyle={{backgroundColor:'white'}}
+              />
+          </View>
+        :null}
+       
             <View style={{flexDirection:'row',width:width,alignItems:'center'}}>
               <Text style={{width:width*0.3,textAlign:'center',color:'black',paddingVertical:12,fontWeight:'700'}}>Catatan</Text>
               <Text style={{width:width*0.4,textAlign:'center',paddingVertical:12, backgroundColor:'#deffee',color:'#3bff9d',fontWeight:'700'}}>Pemasukan</Text>
@@ -251,7 +257,12 @@ function DetailLaporanScreen (props) {
                     if(selectedValue==='Bulan'){
                       
                       if(startdate <=new Date(dat.dateInput).getFullYear()<=enddate.getFullYear()){
-                        if((startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)){
+                        if(
+                          (startdate.getMonth() + 1<=new Date(dat.dateInput).getMonth() + 1) 
+                          && (enddate.getMonth() + 1>=new Date(dat.dateInput).getMonth() + 1)
+                          && (startdate.getFullYear() <=new Date(dat.dateInput).getFullYear() )
+                          && (enddate.getFullYear() >=new Date(dat.dateInput).getFullYear())
+                          ){
                           return(
                             <View style={{flexDirection:'row',width:width,alignItems:'center',justifyContent:'center'}}>
                               <View style={{width:width*0.3,alignItems:'center'}}>
