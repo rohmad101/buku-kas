@@ -1,10 +1,11 @@
 // @flow
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import BackupRedux from '../Redux/BackupRedux'
+import DataLocalRedux from '../Redux/DataLocalRedux'
 
 // Styles
 import styles from './Styles/SettingsStyle'
@@ -13,21 +14,50 @@ import styles from './Styles/SettingsStyle'
 import I18n from 'react-native-i18n'
 import {  ListItem, Avatar, Accessory , Header, Icon,SocialIcon, Image } from 'react-native-elements'
 import { DrawerActions } from 'react-navigation-drawer'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { bindActionCreators } from 'redux'
+import AsyncStorage from '@react-native-community/async-storage'
 
-class SettingsScreen extends React.Component {
+function SettingsScreen (props) {
+
+  const {backupRequest,data,statusBackup,errorBackup} = props
+  const { height, width }= Dimensions.get('screen')
+  const [phone, setPhone] = useState()
+  
+  useEffect(()=>{
+    AsyncStorage.getItem('PhoneNumber')
+    .then(rr=>{
+      if(rr !== null) {
+        // value previously stored
+        // navigation.replace('MiddlewareScreen',{param:'Dashboard'})
+        setPhone(rr)
+        // alert(rr)
+      }
+    })
+    .catch(cc=> alert('errr'+cc))
+  },[])
   keyExtractor = (item, index) => index.toString()
   renderItem = ({ item }) => (
-    <ListItem bottomDivider >
-      <Avatar title={item.name[0]} source={item.avatar_url && { uri: item.avatar_url }} size={24}/>
-      <ListItem.Content>
-        <ListItem.Title>{item.name}</ListItem.Title>
-      </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem>
+    <TouchableOpacity onPress={()=> ActionPressed(item.name)}>
+      <ListItem bottomDivider >
+        <Avatar title={item.name[0]} source={item.avatar_url && { uri: item.avatar_url }} size={24}/>
+        <ListItem.Content>
+          <ListItem.Title>{item.name}</ListItem.Title>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
+    </TouchableOpacity>
   )
-  render () {
-    const { height, width }= Dimensions.get('screen')
+ const ActionPressed=(act)=>{
+    if(act ==='Backup Data'){
+      backupRequest({
+        "phone_number":phone,
+        "data_user": data
+      })
+    }else{
+      alert(act)
+    }
+  }
     const list = [
       {
         name: 'Cara Penggunaan',
@@ -56,6 +86,10 @@ class SettingsScreen extends React.Component {
       {
         name: 'Bagikan Aplikasi',
         avatar_url: 'data:image/png;base64,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',
+      },
+      {
+        name: 'Backup Data',
+        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2xqJ_bSoSJ-GGb8_CQiuIP9ycsAPCQ3XTRQ&usqp=CAU',
       }
     ]
     
@@ -87,7 +121,7 @@ class SettingsScreen extends React.Component {
                 </Avatar>
                 <View>
                   <Text>Usaha Saya</Text>
-                  <Text>+62-81283128318238</Text>
+                  <Text>+62 {phone}</Text>
                 </View>
               </View>
               
@@ -154,18 +188,19 @@ class SettingsScreen extends React.Component {
         </ScrollView>
       </View>
     )
-  }
 
 }
 
 const mapStateToProps = (state) => {
   return {
+    statusBackup: state.backup.payload,
+    errorBackup: state.backup.error,
+    data: state.local.payload
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(Object.assign(BackupRedux,DataLocalRedux),dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen)

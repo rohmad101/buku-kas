@@ -9,11 +9,14 @@ import { Avatar, Accessory, Input } from 'react-native-elements';
 // Styles
 import styles from './Styles/AuthScreenStyle'
 import AsyncStorage from '@react-native-community/async-storage';
+import RegisterRedux from '../Redux/RegisterRedux';
+import DataLocalRedux from '../Redux/DataLocalRedux'
+import { bindActionCreators } from 'redux';
 
 function AuthScreen (props) {
   const [selectedValue, setselectedValue]=useState('Indonesia')
   const [phone, setphone]=useState('')
-  const { navigation } =props
+  const { navigation,data,registerRequest } =props
 
   useEffect(()=>{
     AsyncStorage.getItem('PhoneNumber')
@@ -25,8 +28,16 @@ function AuthScreen (props) {
       }
     })
     .catch(cc=> alert('errr'+cc))
-    
+      
   },[])
+
+  useEffect(()=>{
+    if(data && data.success){
+      AsyncStorage.setItem('PhoneNumber',phone)
+      props.dataLocalSuccess(data.data)
+      navigation.replace('MiddlewareScreen',{param:'Dashboard'})
+    }
+  },[data])
     ContentHeader=()=>{
     return (
       <View>
@@ -34,7 +45,7 @@ function AuthScreen (props) {
           <Avatar
             source={{
               uri:
-                'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                'https://i.pinimg.com/originals/46/da/e5/46dae512e375bee2664a025507da8795.jpg',
             }} 
             size={60}
             >
@@ -49,9 +60,13 @@ function AuthScreen (props) {
   }
 
   Submit= ()=>{
-    AsyncStorage.setItem('PhoneNumber',phone)
-    navigation.replace('MiddlewareScreen',{param:'Dashboard'})
+    
+    registerRequest({
+      "phone_number": phone
+    })
+
   }
+
     const { width, heigth } = Dimensions.get('screen')
     return (
       <View style={{flex:1,width:width, heigth:heigth, justifyContent: 'center',padding:12}}>
@@ -94,12 +109,12 @@ function AuthScreen (props) {
 
 const mapStateToProps = (state) => {
   return {
+    data: state.register.payload,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(Object.assign(RegisterRedux,DataLocalRedux),dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)
