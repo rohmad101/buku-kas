@@ -35,6 +35,7 @@ function AuthScreen (props) {
     if(data && data.success){
       AsyncStorage.setItem('PhoneNumber',phone)
       props.dataLocalSuccess(data.data)
+      Alert.alert(' ', data.message)
       navigation.replace('MiddlewareScreen',{param:'Dashboard'})
     }
   },[data])

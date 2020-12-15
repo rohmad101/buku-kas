@@ -17,12 +17,14 @@ import { DrawerActions } from 'react-navigation-drawer'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { bindActionCreators } from 'redux'
 import AsyncStorage from '@react-native-community/async-storage'
+import { Alert } from 'react-native'
 
 function SettingsScreen (props) {
 
   const {backupRequest,data,statusBackup,errorBackup} = props
   const { height, width }= Dimensions.get('screen')
   const [phone, setPhone] = useState()
+  const [loading, setLoading] = useState(false)
   
   useEffect(()=>{
     AsyncStorage.getItem('PhoneNumber')
@@ -36,8 +38,20 @@ function SettingsScreen (props) {
     })
     .catch(cc=> alert('errr'+cc))
   },[])
-  keyExtractor = (item, index) => index.toString()
-  renderItem = ({ item }) => (
+
+  useEffect(()=>{
+    if(statusBackup && statusBackup.success && loading){
+      
+      setTimeout(() => {
+        Alert.alert(' ' , statusBackup.message)
+        setTimeout(() => {
+          setLoading(false)
+        },500);
+      }, 1000);
+    }
+  })
+  // keyExtractor = (item, index) => index.toString()
+  const renderItem = ({ item }) => (
     <TouchableOpacity onPress={()=> ActionPressed(item.name)}>
       <ListItem bottomDivider >
         <Avatar title={item.name[0]} source={item.avatar_url && { uri: item.avatar_url }} size={24}/>
@@ -50,6 +64,7 @@ function SettingsScreen (props) {
   )
  const ActionPressed=(act)=>{
     if(act ==='Backup Data'){
+      setLoading(true)
       backupRequest({
         "phone_number":phone,
         "data_user": data
@@ -93,7 +108,14 @@ function SettingsScreen (props) {
       }
     ]
     
-
+    if(loading){
+      return(
+        <View style={[styles.container, {justifyContent:'center',alignItems:'center'}]}>
+          <ActivityIndicator size={40} color={'#3498DB'}/>
+          <Text>Backup Data</Text>
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
         <Header
@@ -162,9 +184,9 @@ function SettingsScreen (props) {
                 </View>
               </View>
               <FlatList
-                keyExtractor={this.keyExtractor}
+                // keyExtractor={this.keyExtractor}
                 data={list}
-                renderItem={this.renderItem}
+                renderItem={renderItem}
               />
               <Text style={{
                 paddingHorizontal:12,paddingTop:24,
