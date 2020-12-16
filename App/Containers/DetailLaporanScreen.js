@@ -103,11 +103,17 @@ function DetailLaporanScreen (props) {
   const onChangeStart = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowStartDate(false);
+    if(currentDate>enddate){
+      setenddate(currentDate)
+    }
     setstartdate(currentDate);
   };
   const onChangeEnd = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setshowEndDate(false);
+    if(currentDate<startdate){
+      setstartdate(currentDate);
+    }
     setenddate(currentDate);
   };
   const updateIndex= (selectedIndex)=> {
