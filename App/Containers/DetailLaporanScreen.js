@@ -10,18 +10,21 @@ import DataLocalRedux from '../Redux/DataLocalRedux'
 
 // Styles
 import styles from './Styles/DetailLaporanScreenStyle'
+import { Alert } from 'react-native'
 
 function DetailLaporanScreen (props) {
   const [pemasukan,setpemasukan]=useState(0)
   const [pengeluaran,setpengeluaran]=useState(0)
   const {width,height}=Dimensions.get('screen')
   const [selectedValue, setSelectedValue] = useState("Semua");
-  const [sum, setsum] = useState(0)
   const [startdate, setstartdate] = useState(new Date());
   const [enddate, setenddate] = useState(new Date());
   const [showStartDate, setShowStartDate] = useState(false);
   const [showEndDate, setshowEndDate] = useState(false);
   const [selectedIndex,setselectedIndex] = useState(0)
+  const [totalTransaksi, settotalTransaksi] = useState(0)
+  const [totalTransaksiTerima, settotalTransaksiTerima] = useState(0)
+  const [totalTransaksiPengeluaran, settotalTransaksiPengeluaran] = useState(0)
   const { data }= props
 
   useEffect(()=>{
@@ -31,19 +34,24 @@ function DetailLaporanScreen (props) {
   useEffect(()=>{
     let masuk =0
     let keluar = 0
-    let sums = []
+    let totalTransaksi=0
+    let totalTerima=0
+    let totalPengeluaran=0
     let sumMins=0
     let sumIncs=0
        data.map((data,index) =>{
         data.history.map(dat =>{
+          totalTransaksi +=1
           if(selectedValue==='Semua'){
               if(dat.jenis ==="terima") {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
+                totalTerima +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
+                totalPengeluaran +=1
             }
           }
           if(selectedValue==='Tanggal'){
@@ -52,9 +60,11 @@ function DetailLaporanScreen (props) {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
+                totalTerima +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
+                totalPengeluaran +=1
               }
             }
           }
@@ -68,9 +78,11 @@ function DetailLaporanScreen (props) {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
+                totalTerima +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
+                totalPengeluaran +=1
               }
             }
           }
@@ -81,21 +93,24 @@ function DetailLaporanScreen (props) {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
+                totalTerima +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
+                totalPengeluaran +=1
               }
             }
           }
          
         })
-        sums.push(sumIncs-sumMins)
         sumIncs = 0
         sumMins=0
       })
-      setsum(sums)
       setpemasukan(masuk)
       setpengeluaran(keluar)
+      settotalTransaksi(totalTransaksi)
+      settotalTransaksiTerima(totalTerima)
+      settotalTransaksiPengeluaran(totalPengeluaran)
   },[data,selectedValue,startdate,enddate])
 
 
@@ -216,9 +231,18 @@ function DetailLaporanScreen (props) {
         :null}
        
             <View style={{flexDirection:'row',width:width,alignItems:'center'}}>
-              <Text style={{width:width*0.3,textAlign:'center',color:'black',paddingVertical:12,fontWeight:'700'}}>Catatan</Text>
+              <View style={{flexDirection:'column', alignItems:'center'}}>
+                <Text style={{width:width*0.3,textAlign:'center',color:'black',paddingVertical:12,fontWeight:'700'}}>Catatan</Text>
+                <Text style={{color:'grey'}}>{totalTransaksi} Transaksi</Text>
+              </View>
+              <View style={{flexDirection:'column', alignItems:'center', backgroundColor:'#deffee'}}>
               <Text style={{width:width*0.4,textAlign:'center',paddingVertical:12, backgroundColor:'#deffee',color:'#3bff9d',fontWeight:'700'}}>Pemasukan</Text>
+                <Text style={{color:'grey'}}>{totalTransaksiTerima} Transaksi</Text>
+              </View>
+              <View style={{flexDirection:'column', alignItems:'center'}}>
               <Text style={{width:width*0.3,textAlign:'center',paddingVertical:12,color:'red',fontWeight:'700'}}>Pengeluaran</Text>
+                <Text style={{color:'grey'}}>{totalTransaksiPengeluaran} Transaksi</Text>
+              </View>
             </View>
        
           <View style={{width:width, height:height*0.35,flexDirection:'column',width:width}}>
@@ -312,6 +336,20 @@ function DetailLaporanScreen (props) {
               
         </ScrollView>
           </View>
+          <TouchableOpacity
+          onPress={()=> Alert.alert(' ', 'Still on Development')}
+         style={{
+            position:'absolute',bottom:10,right:5,
+            width:200,height:50,backgroundColor:'#FBB117',
+            borderRadius:20,justifyContent:'center',alignItems:'center'
+            }}>
+              <Text
+                style={{
+                  color:"white", fontSize:16, fontWeight:'600'
+                }}>
+                Undung Laporan
+              </Text>
+        </TouchableOpacity>
       </View>
     )
 }
