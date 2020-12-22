@@ -41,17 +41,18 @@ function DetailLaporanScreen (props) {
     let sumIncs=0
        data.map((data,index) =>{
         data.history.map(dat =>{
-          totalTransaksi +=1
           if(selectedValue==='Semua'){
               if(dat.jenis ==="terima") {
                 // setpemasukan(pemasukan+dat.nominal)
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
+                totalTransaksi +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
+                totalTransaksi +=1
             }
           }
           if(selectedValue==='Tanggal'){
@@ -61,10 +62,12 @@ function DetailLaporanScreen (props) {
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
+                totalTransaksi +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
+                totalTransaksi +=1
               }
             }
           }
@@ -79,10 +82,12 @@ function DetailLaporanScreen (props) {
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
+                totalTransaksi +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
+                totalTransaksi +=1
               }
             }
           }
@@ -94,10 +99,12 @@ function DetailLaporanScreen (props) {
                 masuk += parseInt(dat.nominal)
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
+                totalTransaksi +=1
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
+                totalTransaksi +=1
               }
             }
           }
@@ -245,7 +252,7 @@ function DetailLaporanScreen (props) {
               </View>
             </View>
        
-          <View style={{width:width, height:height*0.35,flexDirection:'column',width:width}}>
+          <View style={{width:width, height:selectedValue==='Semua'?height*0.35 +50:height*0.35,flexDirection:'column',width:width}}>
           <ScrollView>
               {
                 data.map((data,ix) =>{
@@ -328,12 +335,12 @@ function DetailLaporanScreen (props) {
                         )
                       }
                     } 
-                    
                   
                   })
                 })
               }
-              
+            
+            <View style={{height:height*0.1}}></View>
         </ScrollView>
           </View>
           <TouchableOpacity
