@@ -27,6 +27,6 @@ jobs:
         run: |
           npm ci
 
-      - name: Calc coverage
-        run: |
-          npm run code-quality
+      # - name: Calc coverage
+      #   run: |
+      #     npm run code-quality
