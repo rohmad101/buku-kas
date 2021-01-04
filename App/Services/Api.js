@@ -40,6 +40,7 @@ const create = (baseURL = URL) => {
   // const getUser = (username) => api.get('search/users', {q: username})
   const registerUser = (payload) => api.post('mt/register_user',payload)
   const getbackup = (payload) => api.post('mt/backup_user_data',payload)
+  const getPdf =(payload)=> api.post('mt/dynamic_pdf/pdf', payload)
   // ------
   // STEP 3
   // ------
@@ -58,7 +59,8 @@ const create = (baseURL = URL) => {
     // getRate,
     // getUser
     registerUser,
-    getbackup
+    getbackup,
+    getPdf
   }
 }
 

@@ -6,11 +6,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DateTimePicker from '@react-native-community/datetimepicker';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import DataLocalRedux from '../Redux/DataLocalRedux'
+import DataLocalRedux, { success } from '../Redux/DataLocalRedux'
 
 // Styles
 import styles from './Styles/DetailLaporanScreenStyle'
+import RNFetchBlob from 'rn-fetch-blob'
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import { Alert } from 'react-native'
+import Pdf from 'react-native-pdf';
 
 function DetailLaporanScreen (props) {
   const [pemasukan,setpemasukan]=useState(0)
@@ -25,6 +28,8 @@ function DetailLaporanScreen (props) {
   const [totalTransaksi, settotalTransaksi] = useState(0)
   const [totalTransaksiTerima, settotalTransaksiTerima] = useState(0)
   const [totalTransaksiPengeluaran, settotalTransaksiPengeluaran] = useState(0)
+  const [dataForDownload, setdataForDownload]= useState([])
+  const [uriPDF, setPDF] = useState('')
   const { data }= props
 
   useEffect(()=>{
@@ -39,6 +44,7 @@ function DetailLaporanScreen (props) {
     let totalPengeluaran=0
     let sumMins=0
     let sumIncs=0
+    let dataDownload = []
        data.map((data,index) =>{
         data.history.map(dat =>{
           if(selectedValue==='Semua'){
@@ -48,11 +54,27 @@ function DetailLaporanScreen (props) {
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
                 totalTransaksi +=1
+                dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
             }
           }
           if(selectedValue==='Tanggal'){
@@ -63,11 +85,27 @@ function DetailLaporanScreen (props) {
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }
             }
           }
@@ -83,11 +121,27 @@ function DetailLaporanScreen (props) {
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }
             }
           }
@@ -100,11 +154,27 @@ function DetailLaporanScreen (props) {
                 sumIncs +=parseInt(dat.nominal)
                 totalTerima +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }else{
                 keluar += parseInt(dat.nominal)
                 sumMins +=parseInt(dat.nominal)
                 totalPengeluaran +=1
                 totalTransaksi +=1
+                 dataDownload.push({
+                  "no": dataDownload.length+1,
+                  "tanggal_transaksi": dat.dateInput,
+                  "nama_pelanggan": dat.nama,
+                  "catatan": " ",
+                  "terima": dat.jenis ==='berikan'?0:dat.nominal,
+                  "berikan": dat.jenis ==='berikan'?dat.nominal:0
+              })
               }
             }
           }
@@ -118,6 +188,7 @@ function DetailLaporanScreen (props) {
       settotalTransaksi(totalTransaksi)
       settotalTransaksiTerima(totalTerima)
       settotalTransaksiPengeluaran(totalPengeluaran)
+      setdataForDownload(dataDownload)
   },[data,selectedValue,startdate,enddate])
 
 
@@ -166,6 +237,11 @@ function DetailLaporanScreen (props) {
   )
   // <Button onPress={showTimepicker} title="Show time picker!" />
   const buttons = [{ element: component1 }, { element: component2 }]
+
+  const { config, fs, } = RNFetchBlob;
+  const RNFS = require('react-native-fs')
+  const downloads = fs.dirs.DownloadDir;
+  const URL='https://hercules.aturtoko.id/mytoko/public/'
 
     return (
       <View style={[styles.container,{alignItems:'center', backgroundColor:'whitesmoke'}]}>
@@ -344,7 +420,84 @@ function DetailLaporanScreen (props) {
         </ScrollView>
           </View>
           <TouchableOpacity
-          onPress={()=> Alert.alert(' ', 'Still on Development')}
+          onPress={async()=>{
+            await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then((result) => {
+              // …
+            });
+            await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
+            .then((result) => {
+              switch (result) {
+                case RESULTS.UNAVAILABLE:
+                  console.log('This feature is not available (on this device / in this context)');
+                  break;
+                case RESULTS.DENIED:
+                  console.log('The permission has not been requested / is denied but requestable');
+                  break;
+                case RESULTS.LIMITED:
+                  console.log('The permission is limited: some actions are possible');
+                  break;
+                case RESULTS.GRANTED:
+                  console.log('The permission is granted');
+
+                  config({
+                    // add this option that makes response data to be stored as a file,
+                    // this is much more performant.
+                    fileCache : true,
+                    path:  downloads + '/laporanbukukas.pdf',
+                    overwrite:true,
+                    indicator:true,
+                    addAndroidDownloads : {
+                      // Show notification when response data transmitted
+                      notification : true,
+                      // Title of download notification
+                      title : 'Laporan Dokumen BukuKas Berhasil!',
+                      // File description (not notification description)
+                      description :  downloads + '/laporanbukukas.pdf',
+                      // Make the file scannable  by media scanner
+                      mediaScannable : false,
+                      
+                    }
+                  })
+                  .fetch('POST', URL+'mt/dynamic_pdf/pdf',{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  JSON.stringify({
+                    "range_tanggal": startdate.toLocaleDateString()+ " - "+enddate.toLocaleDateString(),
+                      "data": dataForDownload
+                  })
+                  ) .then((res) => {
+                    // the temp file path
+                    setPDF(res.path())
+                    console.log('The file saved to ', res.path())
+                    // Alert.alert(
+                    //   "Unduh Laporan berhasil",
+                    //   "Apakah ingin membuka laporan ?",
+                    //   [
+                    //     {
+                    //       text: "Cancel",
+                    //       onPress: () => console.log("Cancel Pressed"),
+                    //       style: "cancel"
+                    //     },
+                    //     { text: "OK", onPress: () => RNFS.readFile(res.path()) }
+                    //   ],
+                    //   { cancelable: false }
+                    // )
+                  })
+                  break;
+                case RESULTS.BLOCKED:
+                  console.log('The permission is denied and not requestable anymore');
+                  break;
+              }
+            })
+            .catch((error) => {
+              // …
+            });
+           
+           
+            
+           
+          }}
          style={{
             position:'absolute',bottom:10,right:5,
             width:200,height:50,backgroundColor:'#FBB117',
@@ -357,6 +510,37 @@ function DetailLaporanScreen (props) {
                 Undung Laporan
               </Text>
         </TouchableOpacity>
+        {
+          uriPDF?
+          <View style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginTop: 25,
+        }}>
+                <Pdf
+                    source={uriPDF}
+                    onLoadComplete={(numberOfPages,filePath)=>{
+                        console.log(`number of pages: ${numberOfPages}`);
+                    }}
+                    onPageChanged={(page,numberOfPages)=>{
+                        console.log(`current page: ${page}`);
+                    }}
+                    onError={(error)=>{
+                        console.log(error);
+                    }}
+                    onPressLink={(uri)=>{
+                        console.log(`Link presse: ${uri}`)
+                    }}
+                    style={{
+                      flex:1,
+                      width:width,
+                      height:height,
+                   }}/>
+            </View>
+          :null
+        }
+       
       </View>
     )
 }

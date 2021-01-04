@@ -19,16 +19,26 @@ import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // @react-native-community/picker
 import com.reactnativecommunity.picker.RNCPickerPackage;
+// @react-native-community/progress-bar-android
+import com.reactnativecommunity.androidprogressbar.RNCProgressBarPackage;
+// @react-native-community/progress-view
+import com.reactnativecommunity.progressview.RNCProgressViewPackage;
 // @react-native-community/toolbar-android
 import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
 // react-native-config
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 // react-native-device-info
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+// react-native-fs
+import com.rnfs.RNFSPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-i18n
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+// react-native-pdf
+import org.wonday.pdf.RCTPdfView;
+// react-native-permissions
+import com.zoontek.rnpermissions.RNPermissionsPackage;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -39,6 +49,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
+// rn-fetch-blob
+import com.RNFetchBlob.RNFetchBlobPackage;
 
 public class PackageList {
   private Application application;
@@ -88,16 +100,22 @@ public class PackageList {
       new RNDateTimePickerPackage(),
       new RNCMaskedViewPackage(),
       new RNCPickerPackage(),
+      new RNCProgressBarPackage(),
+      new RNCProgressViewPackage(),
       new ReactToolbarPackage(),
       new ReactNativeConfigPackage(),
       new RNDeviceInfo(),
+      new RNFSPackage(),
       new RNGestureHandlerPackage(),
       new RNI18nPackage(),
+      new RCTPdfView(),
+      new RNPermissionsPackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
       new SplashScreenReactPackage(),
-      new VectorIconsPackage()
+      new VectorIconsPackage(),
+      new RNFetchBlobPackage()
     ));
   }
 }
