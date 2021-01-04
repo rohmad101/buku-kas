@@ -21,8 +21,8 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      width:width,
-      height:height
+      width: width,
+      height: height
     },
     section: {
       margin: Metrics.section,

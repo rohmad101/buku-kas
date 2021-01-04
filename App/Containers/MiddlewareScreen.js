@@ -8,16 +8,16 @@ import { connect } from 'react-redux'
 import styles from './Styles/MiddlewareScreenStyle'
 
 class MiddlewareScreen extends Component {
-  componentDidMount(){
+  componentDidMount () {
     setTimeout(() => {
-      const {getParam}=this.props.navigation
-      this.props.navigation.replace(getParam('param')?getParam('param'):'AuthScreen')
-    }, 1000);
+      const {getParam} = this.props.navigation
+      this.props.navigation.replace(getParam('param') ? getParam('param') : 'AuthScreen')
+    }, 1000)
   }
   render () {
     const { width, heigth } = Dimensions.get('screen')
     return (
-      <View style={{flex:1,width:width, heigth:heigth, justifyContent: 'center',alignItems: 'center',}}>
+      <View style={{flex: 1, width: width, heigth: heigth, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size={40} color={'blue'} />
       </View>
     )

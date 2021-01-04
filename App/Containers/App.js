@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
 import { StatusBar } from 'react-native'
-import  SplashScreen from 'react-native-splash-screen';
+import SplashScreen from 'react-native-splash-screen'
 // create our store
 const store = createStore()
 
@@ -19,7 +19,7 @@ const store = createStore()
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
-  componentDidMount(){
+  componentDidMount () {
     SplashScreen.hide()
   }
   render () {
@@ -27,7 +27,7 @@ class App extends Component {
       <Provider store={store}>
         <StatusBar
           backgroundColor={'blue'}
-          barStyle="light-content"
+          barStyle='light-content'
          />
         <RootContainer />
       </Provider>

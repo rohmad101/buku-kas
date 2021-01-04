@@ -6,12 +6,12 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { BackupTypes } from '../Redux/BackupRedux'
-import { RegisterTypes } from '../Redux/RegisterRedux';
+import { RegisterTypes } from '../Redux/RegisterRedux'
 
 /* ------------- Sagas ------------- */
 
 import { getBackup } from './BackupSagas'
-import { getRegister } from './RegisterSagas';
+import { getRegister } from './RegisterSagas'
 
 /* ------------- API ------------- */
 
@@ -26,6 +26,6 @@ export default function * root () {
     // some sagas only receive an action
     // takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(RegisterTypes.REGISTER_REQUEST, getRegister, api),
-    takeLatest(BackupTypes.BACKUP_REQUEST, getBackup, api),
+    takeLatest(BackupTypes.BACKUP_REQUEST, getBackup, api)
   ])
 }

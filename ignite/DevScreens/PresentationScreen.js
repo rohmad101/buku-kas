@@ -2,8 +2,8 @@ import React from 'react'
 import { ScrollView, Text, Image, View, TouchableOpacity } from 'react-native'
 import { Images } from './DevTheme'
 import ButtonBox from './ButtonBox'
-import {  createAppContainer } from 'react-navigation'
-import { createStackNavigator  } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 // Screens
 import APITestingScreen from './APITestingScreen'
 import ComponentExamplesScreen from './ComponentExamplesScreen'
@@ -110,4 +110,4 @@ const stackNavigator = createStackNavigator({
   }
 })
 
-export default createAppContainer(stackNavigator);
+export default createAppContainer(stackNavigator)

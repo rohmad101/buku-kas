@@ -1,6 +1,6 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
-const URL='https://hercules.aturtoko.id/mytoko/public/'
+const URL = 'https://hercules.aturtoko.id/mytoko/public/'
 // our "constructor"
 const create = (baseURL = URL) => {
   // ------
@@ -38,9 +38,9 @@ const create = (baseURL = URL) => {
   // const getRoot = () => api.get('')
   // const getRate = () => api.get('rate_limit')
   // const getUser = (username) => api.get('search/users', {q: username})
-  const registerUser = (payload) => api.post('mt/register_user',payload)
-  const getbackup = (payload) => api.post('mt/backup_user_data',payload)
-  const getPdf =(payload)=> api.post('mt/dynamic_pdf/pdf', payload)
+  const registerUser = (payload) => api.post('mt/register_user', payload)
+  const getbackup = (payload) => api.post('mt/backup_user_data', payload)
+  const getPdf = (payload) => api.post('mt/dynamic_pdf/pdf', payload)
   // ------
   // STEP 3
   // ------
