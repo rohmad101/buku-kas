@@ -3,7 +3,9 @@ name: CodeQuality
 on:
   push:
     branchs:
-      - master
+      - main
+      - master 
+      - dev
 
 jobs:
   check:
