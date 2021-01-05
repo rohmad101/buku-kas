@@ -1,7 +1,5 @@
-// @flow
-
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, ActivityIndicator } from 'react-native'
+import { ScrollView, Text, View, Dimensions, ActivityIndicator, Alert } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import BackupRedux from '../Redux/BackupRedux'
@@ -11,16 +9,14 @@ import DataLocalRedux from '../Redux/DataLocalRedux'
 import styles from './Styles/SettingsStyle'
 
 // I18n
-import I18n from 'react-native-i18n'
 import { ListItem, Avatar, Accessory, Header, Icon, SocialIcon, Image } from 'react-native-elements'
 import { DrawerActions } from 'react-navigation-drawer'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { bindActionCreators } from 'redux'
 import AsyncStorage from '@react-native-community/async-storage'
-import { Alert } from 'react-native'
 
 function SettingsScreen (props) {
-  const {backupRequest, data, statusBackup, errorBackup} = props
+  const {backupRequest, data, statusBackup} = props
   const { height, width } = Dimensions.get('screen')
   const [phone, setPhone] = useState()
   const [loading, setLoading] = useState(false)
@@ -32,10 +28,10 @@ function SettingsScreen (props) {
         // value previously stored
         // navigation.replace('MiddlewareScreen',{param:'Dashboard'})
         setPhone(rr)
-        // alert(rr)
+        //  Alert.alertrr)
       }
     })
-    .catch(cc => alert('errr' + cc))
+    .catch(cc => Alert.alert('errr' + cc))
   }, [])
 
   useEffect(() => {
@@ -67,8 +63,6 @@ function SettingsScreen (props) {
         'phone_number': phone,
         'data_user': data
       })
-    } else {
-      alert(act)
     }
   }
   const list = [

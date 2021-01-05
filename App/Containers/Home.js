@@ -10,7 +10,6 @@ import DataLocalRedux from '../Redux/DataLocalRedux'
 import styles from './Styles/HomeStyle'
 
 // I18n
-import I18n from 'react-native-i18n'
 import { Header, Icon, Image } from 'react-native-elements'
 import { DrawerActions } from 'react-navigation-drawer'
 import { View } from 'react-native-animatable'
@@ -33,7 +32,7 @@ function HomeScreen (props) {
     let sums = []
     let sumMins = 0
     let sumIncs = 0
-    data.map((data, index) => {
+    data.map((data) => {
       data.history.map(dat => {
         if (dat.jenis === 'terima') {
             // setpemasukan(pemasukan+dat.nominal)

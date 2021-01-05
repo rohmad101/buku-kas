@@ -13,7 +13,7 @@ import styles from '../Styles/DrawerDashboardStyle'
 class DrawerDashboard extends React.Component {
   render () {
     return (
-      <ScrollView style={styles.container, { marginTop: 24}}>
+      <ScrollView style={[styles.container, { marginTop: 24 }]}>
         <KeyboardAvoidingView behavior='position'>
           <View style={{padding: 12, flexDirection: 'row', height: 75}}>
             <Image

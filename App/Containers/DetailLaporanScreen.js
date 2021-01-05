@@ -1,18 +1,17 @@
 import { Picker } from '@react-native-community/picker'
 import React, { useState, useEffect } from 'react'
 import { Dimensions, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import { Button, ButtonGroup, Header, Icon } from 'react-native-elements'
+import { ButtonGroup, Header, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DateTimePicker from '@react-native-community/datetimepicker'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import DataLocalRedux, { success } from '../Redux/DataLocalRedux'
+import DataLocalRedux from '../Redux/DataLocalRedux'
 
 // Styles
 import styles from './Styles/DetailLaporanScreenStyle'
 import RNFetchBlob from 'rn-fetch-blob'
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions'
-import { Alert } from 'react-native'
 import Pdf from 'react-native-pdf'
 
 function DetailLaporanScreen (props) {
@@ -42,16 +41,16 @@ function DetailLaporanScreen (props) {
     let totalTransaksi = 0
     let totalTerima = 0
     let totalPengeluaran = 0
-    let sumMins = 0
-    let sumIncs = 0
+    // let sumMins = 0
+    // let sumIncs = 0
     let dataDownload = []
-    data.map((data, index) => {
+    data.map((data) => {
       data.history.map(dat => {
         if (selectedValue === 'Semua') {
           if (dat.jenis === 'terima') {
                 // setpemasukan(pemasukan+dat.nominal)
-            masuk += parseInt(dat.nominal)
-            sumIncs += parseInt(dat.nominal)
+            // masuk += parseInt(dat.nominal)
+            // sumIncs += parseInt(dat.nominal)
             totalTerima += 1
             totalTransaksi += 1
             dataDownload.push({
@@ -63,8 +62,8 @@ function DetailLaporanScreen (props) {
               'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
             })
           } else {
-            keluar += parseInt(dat.nominal)
-            sumMins += parseInt(dat.nominal)
+            // keluar += parseInt(dat.nominal)
+            // sumMins += parseInt(dat.nominal)
             totalPengeluaran += 1
             totalTransaksi += 1
             dataDownload.push({
@@ -81,8 +80,8 @@ function DetailLaporanScreen (props) {
           if (enddate.toLocaleDateString() >= dat.dateInput && dat.dateInput >= startdate.toLocaleDateString()) {
             if (dat.jenis === 'terima') {
                 // setpemasukan(pemasukan+dat.nominal)
-              masuk += parseInt(dat.nominal)
-              sumIncs += parseInt(dat.nominal)
+              // masuk += parseInt(dat.nominal)
+              // sumIncs += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -94,8 +93,8 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              keluar += parseInt(dat.nominal)
-              sumMins += parseInt(dat.nominal)
+              // keluar += parseInt(dat.nominal)
+              // sumMins += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -117,8 +116,8 @@ function DetailLaporanScreen (props) {
                 ) {
             if (dat.jenis === 'terima') {
                 // setpemasukan(pemasukan+dat.nominal)
-              masuk += parseInt(dat.nominal)
-              sumIncs += parseInt(dat.nominal)
+              // masuk += parseInt(dat.nominal)
+              // sumIncs += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -130,8 +129,8 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              keluar += parseInt(dat.nominal)
-              sumMins += parseInt(dat.nominal)
+              // keluar += parseInt(dat.nominal)
+              // sumMins += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -150,8 +149,8 @@ function DetailLaporanScreen (props) {
             (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())) {
             if (dat.jenis === 'terima') {
                 // setpemasukan(pemasukan+dat.nominal)
-              masuk += parseInt(dat.nominal)
-              sumIncs += parseInt(dat.nominal)
+              // masuk += parseInt(dat.nominal)
+              // sumIncs += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -163,8 +162,8 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              keluar += parseInt(dat.nominal)
-              sumMins += parseInt(dat.nominal)
+              // keluar += parseInt(dat.nominal)
+              // sumMins += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -179,8 +178,8 @@ function DetailLaporanScreen (props) {
           }
         }
       })
-      sumIncs = 0
-      sumMins = 0
+      // sumIncs = 0
+      // sumMins = 0
     })
     setpemasukan(masuk)
     setpengeluaran(keluar)
@@ -191,7 +190,7 @@ function DetailLaporanScreen (props) {
   }, [data, selectedValue, startdate, enddate])
 
   const onChangeStart = (event, selectedDate) => {
-    const currentDate = selectedDate || date
+    const currentDate = selectedDate || new Date()
     setShowStartDate(false)
     if (currentDate > enddate) {
       setenddate(currentDate)
@@ -199,7 +198,7 @@ function DetailLaporanScreen (props) {
     setstartdate(currentDate)
   }
   const onChangeEnd = (event, selectedDate) => {
-    const currentDate = selectedDate || date
+    const currentDate = selectedDate || new Date()
     setshowEndDate(false)
     if (currentDate < startdate) {
       setstartdate(currentDate)
@@ -236,7 +235,6 @@ function DetailLaporanScreen (props) {
   const buttons = [{ element: component1 }, { element: component2 }]
 
   const { config, fs } = RNFetchBlob
-  const RNFS = require('react-native-fs')
   const downloads = fs.dirs.DownloadDir
   const URL = 'https://hercules.aturtoko.id/mytoko/public/'
 
@@ -289,7 +287,7 @@ function DetailLaporanScreen (props) {
         <Picker
           selectedValue={selectedValue}
           style={{ height: 50, width: width * 0.5 }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
 
             >
           <Picker.Item label='Semua' value='Semua' />
@@ -325,11 +323,11 @@ function DetailLaporanScreen (props) {
         </View>
       </View>
 
-      <View style={{width: width, height: selectedValue === 'Semua' ? height * 0.35 + 50 : height * 0.35, flexDirection: 'column', width: width}}>
+      <View style={{width: width, height: selectedValue === 'Semua' ? height * 0.35 + 50 : height * 0.35, flexDirection: 'column'}}>
         <ScrollView>
           {
-                data.map((data, ix) => {
-                  return data.history.map((dat, index) => {
+                data.map((data) => {
+                  return data.history.map((dat) => {
                     if (selectedValue === 'Semua') {
                       return (
                         <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
@@ -416,7 +414,7 @@ function DetailLaporanScreen (props) {
       </View>
       <TouchableOpacity
         onPress={async() => {
-          await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then((result) => {
+          await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(() => {
               // …
           })
           await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
@@ -485,7 +483,7 @@ function DetailLaporanScreen (props) {
                   break
               }
             })
-            .catch((error) => {
+            .catch(() => {
               // …
             })
         }}
@@ -517,10 +515,10 @@ function DetailLaporanScreen (props) {
             }}>
               <Pdf
                 source={uriPDF}
-                onLoadComplete={(numberOfPages, filePath) => {
+                onLoadComplete={(numberOfPages) => {
                   console.log(`number of pages: ${numberOfPages}`)
                 }}
-                onPageChanged={(page, numberOfPages) => {
+                onPageChanged={(page) => {
                   console.log(`current page: ${page}`)
                 }}
                 onError={(error) => {

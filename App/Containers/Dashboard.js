@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView, Dimensions, Alert, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -10,23 +10,17 @@ import DataLocalRedux from '../Redux/DataLocalRedux'
 import styles from './Styles/DashboardStyle'
 
 // I18n
-import I18n from 'react-native-i18n'
 import { Divider, Header, Icon } from 'react-native-elements'
 import { DrawerActions } from 'react-navigation-drawer'
 import { View } from 'react-native-animatable'
 import { TextInput } from 'react-native-gesture-handler'
-import Animated from 'react-native-reanimated'
 import { bindActionCreators } from 'redux'
 
 function Dashboard (props) {
   const {width, height} = Dimensions.get('screen')
-  const [search, setSearch] = useState('')
   const [visibleSearch, setvisibleSearch] = useState(false)
   const [category, setcategory] = useState('semua')
   const {data} = props
-  const updateSearch = (search) => {
-    setSearch(search)
-  }
 
 // useEffect(
 //   () => {
@@ -53,16 +47,16 @@ function Dashboard (props) {
               <View style={{flexDirection: 'row', width: width, padding: 12, height: '60%'}}>
                 <View style={{width: width * 0.45}}>
                   <View style={{flexDirection: 'row'}}>
-                      <Icon name='trending-down' color='green' />
-                      <Text style={{color: 'green'}}>Rp 0</Text>
-                    </View>
+                    <Icon name='trending-down' color='green' />
+                    <Text style={{color: 'green'}}>Rp 0</Text>
+                  </View>
                   <Text style={{color: 'green'}}>Total Utang Saya</Text>
                 </View>
                 <View style={{width: width * 0.5}}>
                   <View style={{flexDirection: 'row'}}>
-                      <Icon name='trending-up' color='red' />
-                      <Text style={{color: 'red'}}>Rp 0</Text>
-                    </View>
+                    <Icon name='trending-up' color='red' />
+                    <Text style={{color: 'red'}}>Rp 0</Text>
+                  </View>
                   <Text style={{color: 'red'}}>Total Utang Pelanggan</Text>
                 </View>
               </View>

@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, Dimensions, ActivityIndicator, View } from 'react-native'
+import { Dimensions, ActivityIndicator, View } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/MiddlewareScreenStyle'
 
 class MiddlewareScreen extends Component {
   componentDidMount () {
@@ -24,12 +23,12 @@ class MiddlewareScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   return {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
   }
 }

@@ -23,8 +23,7 @@
     "storybook": "storybook start -p 7007",
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
     "fixcode": "standard --fix",
-    "git-hook": "npm run lint -s && npm run test -s",
-    "code-quality": "npm run lint && npm run test"
+    "git-hook": "npm run lint -s && npm run test -s"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.11.0",

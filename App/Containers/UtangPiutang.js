@@ -1,19 +1,16 @@
 // @flow
 
 import React, { useState } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, Dimensions, TouchableOpacity, TextInput, Alert } from 'react-native'
+import { Text, View, Dimensions, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
 
 // Styles
-import styles from './Styles/UtangPiutangStyle'
 
 // I18n
-import I18n from 'react-native-i18n'
 import { CheckBox, Header, Icon } from 'react-native-elements'
 import { bindActionCreators } from 'redux'
-import { set } from 'lodash'
 
 function UtangPiutang (props) {
   const {width, height} = Dimensions.get('screen')
@@ -201,7 +198,7 @@ function UtangPiutang (props) {
 
       <TouchableOpacity
         onPress={() => Submit()}
-        style={{width: width * 0.9, backgroundColor: '#ffbf00', height: 40, position: 'absolute', bottom: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}>
+        style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: 40, position: 'absolute', bottom: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}>
         <Text style={{color: 'white', fontWeight: '700'}}>Simpan Utang Piutang</Text>
       </TouchableOpacity>
     </View>

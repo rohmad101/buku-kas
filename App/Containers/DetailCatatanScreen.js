@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { Header, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import styles from './Styles/DetailCatatanScreenStyle'
 
 function DetailCatatanScreen (props) {
-  const [data, setdata ] = useState('')
+  const [data, setdata] = useState('')
   useEffect(() => {
     console.log('test', props.navigation.getParam('params'))
     setdata(props.navigation.getParam('params'))
@@ -28,12 +28,12 @@ function DetailCatatanScreen (props) {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   return {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
   }
 }

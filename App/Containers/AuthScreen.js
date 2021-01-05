@@ -7,7 +7,6 @@ import { Avatar, Accessory, Input } from 'react-native-elements'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/AuthScreenStyle'
 import AsyncStorage from '@react-native-community/async-storage'
 import RegisterRedux from '../Redux/RegisterRedux'
 import DataLocalRedux from '../Redux/DataLocalRedux'
@@ -27,7 +26,7 @@ function AuthScreen (props) {
         // alert(value)
       }
     })
-    .catch(cc => alert('errr' + cc))
+    .catch(cc => Alert.alert('errr' + cc))
   }, [])
 
   useEffect(() => {
@@ -38,7 +37,7 @@ function AuthScreen (props) {
       navigation.replace('MiddlewareScreen', {param: 'Dashboard'})
     }
   }, [data])
-  ContentHeader = () => {
+  const ContentHeader = () => {
     return (
       <View>
         <View style={{flexDirection: 'row'}}>
@@ -59,7 +58,7 @@ function AuthScreen (props) {
     )
   }
 
-  Submit = () => {
+  const Submit = () => {
     registerRequest({
       'phone_number': phone
     })
@@ -75,7 +74,7 @@ function AuthScreen (props) {
           style={{ height: 50, width: 100 }}
           mode={'dropdown'}
           prompt='Pilih Negara'
-          onValueChange={(itemValue, itemIndex) => setselectedValue(itemValue)}
+          onValueChange={(itemValue) => setselectedValue(itemValue)}
           >
           <Picker.Item label='+62' value='Indonesia' />
           <Picker.Item label='+65' value='Singapore' />
