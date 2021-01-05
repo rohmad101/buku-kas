@@ -24,8 +24,6 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm ci
       - run: npx jetifier
-      - run: android --clean-cache
-      - run: android -update
       - run: ./gradlew clean
       - run: ./gradlew 
       - run: ./gradlew assembleRelease
