@@ -30,14 +30,15 @@ jobs:
         working-directory: android
         name: apk bukukas debug
 
-      - run: ./gradlew clean assembleRelease --warning-mode all
-        working-directory: android
-        name: apk bukukas
+      # - run: ./gradlew clean assembleRelease --warning-mode all
+      #   working-directory: android
+      #   name: apk bukukas
 
       - uses: actions/upload-artifact@v2
         with:
           name: android-apk
           path: '**/*.apk'
+          
 
       # - name: Build Reporting
       #   run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-333124643" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot1305867579:AAHnt6SCBfs9r57FlfvpXEhbJnPxY8Z169Y/sendDocument
