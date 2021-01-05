@@ -25,7 +25,9 @@ jobs:
       - run: npm ci
       - run: npx jetifier
       - run: ./gradlew clean
+        working-directory: android
       - run: ./gradlew 
+        working-directory: android
       - run: ./gradlew assembleRelease
         working-directory: android
         name: apk bukukas
