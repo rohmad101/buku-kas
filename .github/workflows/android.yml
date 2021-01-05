@@ -31,20 +31,20 @@ jobs:
       - name: Calc coverage
         run: |
           npm run git-hook
-      - uses: actions/checkout@v2
-      - name: Use Node.js v14.13.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.13.1
+      # - uses: actions/checkout@v2
+      # - name: Use Node.js v14.13.1
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 14.13.1
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - run: npm ci
+      # - name: Cache npm dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: '~/.npm'
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
+      # - run: npm ci
       - run : npm install --save-dev jetifier
       - run: npx jetifier
 
