@@ -26,7 +26,7 @@ jobs:
       - run : npm install --save-dev jetifier
       - run: npx jetifier
 
-      - run: ./gradlew clean assembleDebug 
+      - run: ./gradlew clean assembleRelease 
         working-directory: android
         name: apk bukukas debug
 
