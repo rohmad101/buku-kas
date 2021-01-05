@@ -4,7 +4,6 @@ on:
   push:
     branchs:
       - main
-      - master 
 
 jobs:
   check:
