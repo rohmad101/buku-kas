@@ -28,7 +28,7 @@ jobs:
 
       - run: ./gradlew clean assembleRelease 
         working-directory: android
-        name: apk bukukas debug
+        name: apk bukukas release
 
       # - run: ./gradlew clean assembleRelease --warning-mode all
       #   working-directory: android
