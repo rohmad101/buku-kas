@@ -1,6 +1,6 @@
-import API from '../../App/Services/Api'
+// import API from '../../App/Services/Api'
 import FixtureAPI from '../../App/Services/FixtureApi'
-import R from 'ramda'
+// import R from 'ramda'
 
 // test('All fixtures map to actual API', () => {
 //   const fixtureKeys = R.keys(FixtureAPI).sort()
