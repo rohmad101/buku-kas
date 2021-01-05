@@ -1,0 +1,73 @@
+name: Android
+
+on:
+  push:
+    branchs:
+      - dev
+
+jobs:
+ check:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js v14.13.1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.13.1
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install ci
+        run: |
+          npm ci
+
+      - name: Calc coverage
+        run: |
+          npm run git-hook
+          
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js v14.13.1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.13.1
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - run : npm install --save-dev jetifier
+      - run: npx jetifier
+
+      - run: ./gradlew clean assembleRelease 
+        working-directory: android
+        name: apk bukukas release
+
+      # - run: ./gradlew clean assembleRelease --warning-mode all
+      #   working-directory: android
+      #   name: apk bukukas
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-apk
+          path: '**/*.apk'
+          
+
+      # - name: Build Reporting
+      #   run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-333124643" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot1305867579:AAHnt6SCBfs9r57FlfvpXEhbJnPxY8Z169Y/sendDocument
+
+      # - name: Build failure
+      #   if: failure()
+      #   run: sh .ci-message.sh ❌
