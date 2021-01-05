@@ -6,8 +6,9 @@ on:
       - dev
 
 jobs:
- check:
-    runs-on: ubuntu-20.04
+
+  build:
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js v14.13.1
@@ -30,10 +31,6 @@ jobs:
       - name: Calc coverage
         run: |
           npm run git-hook
-          
-  build:
-    runs-on: ubuntu-18.04
-    steps:
       - uses: actions/checkout@v2
       - name: Use Node.js v14.13.1
         uses: actions/setup-node@v1
