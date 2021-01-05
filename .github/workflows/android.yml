@@ -23,13 +23,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm ci
+      - run : npm install --save-dev jetifier
       - run: npx jetifier
-      
-      - run: ./gradlew clean assembleDebug
+
+      - run: ./gradlew clean assembleDebug --warning-mode all
         working-directory: android
         name: apk bukukas debug
 
-      - run: ./gradlew clean assembleRelease
+      - run: ./gradlew clean assembleRelease --warning-mode all
         working-directory: android
         name: apk bukukas
 
