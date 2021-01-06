@@ -60,8 +60,15 @@ jobs:
         with:
           name: bukukas-apk
           path: '**/*.apk'
-          
+      # - uses: satackey/action-google-drive@v1
+      #   with:
+      #     skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+      #     upload-from: ./
+      #     upload-to: /path/to/upload
 
+      #     # For those who set up Google Drive API client ID and secret themselves
+      #     google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+      #     google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
       # - name: Build Reporting
       #   run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-333124643" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot1305867579:AAHnt6SCBfs9r57FlfvpXEhbJnPxY8Z169Y/sendDocument
 

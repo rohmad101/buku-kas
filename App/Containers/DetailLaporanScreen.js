@@ -48,9 +48,7 @@ function DetailLaporanScreen (props) {
       data.history.map(dat => {
         if (selectedValue === 'Semua') {
           if (dat.jenis === 'terima') {
-                // setpemasukan(pemasukan+dat.nominal)
-            // masuk += parseInt(dat.nominal)
-            // sumIncs += parseInt(dat.nominal)
+            masuk += parseInt(dat.nominal)
             totalTerima += 1
             totalTransaksi += 1
             dataDownload.push({
@@ -62,8 +60,7 @@ function DetailLaporanScreen (props) {
               'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
             })
           } else {
-            // keluar += parseInt(dat.nominal)
-            // sumMins += parseInt(dat.nominal)
+            keluar += parseInt(dat.nominal)
             totalPengeluaran += 1
             totalTransaksi += 1
             dataDownload.push({
@@ -79,9 +76,7 @@ function DetailLaporanScreen (props) {
         if (selectedValue === 'Tanggal') {
           if (enddate.toLocaleDateString() >= dat.dateInput && dat.dateInput >= startdate.toLocaleDateString()) {
             if (dat.jenis === 'terima') {
-                // setpemasukan(pemasukan+dat.nominal)
-              // masuk += parseInt(dat.nominal)
-              // sumIncs += parseInt(dat.nominal)
+              masuk += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -93,8 +88,7 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              // keluar += parseInt(dat.nominal)
-              // sumMins += parseInt(dat.nominal)
+              keluar += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -115,9 +109,7 @@ function DetailLaporanScreen (props) {
                 (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())
                 ) {
             if (dat.jenis === 'terima') {
-                // setpemasukan(pemasukan+dat.nominal)
-              // masuk += parseInt(dat.nominal)
-              // sumIncs += parseInt(dat.nominal)
+              masuk += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -129,8 +121,7 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              // keluar += parseInt(dat.nominal)
-              // sumMins += parseInt(dat.nominal)
+              keluar += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -148,9 +139,7 @@ function DetailLaporanScreen (props) {
           if ((startdate.getFullYear() <= new Date(dat.dateInput).getFullYear()) &&
             (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())) {
             if (dat.jenis === 'terima') {
-                // setpemasukan(pemasukan+dat.nominal)
-              // masuk += parseInt(dat.nominal)
-              // sumIncs += parseInt(dat.nominal)
+              masuk += parseInt(dat.nominal)
               totalTerima += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -162,8 +151,7 @@ function DetailLaporanScreen (props) {
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
             } else {
-              // keluar += parseInt(dat.nominal)
-              // sumMins += parseInt(dat.nominal)
+              keluar += parseInt(dat.nominal)
               totalPengeluaran += 1
               totalTransaksi += 1
               dataDownload.push({
@@ -178,8 +166,6 @@ function DetailLaporanScreen (props) {
           }
         }
       })
-      // sumIncs = 0
-      // sumMins = 0
     })
     setpemasukan(masuk)
     setpengeluaran(keluar)
@@ -247,7 +233,7 @@ function DetailLaporanScreen (props) {
         marginTop: 25
       }}>
         <Pdf
-          source={{uri: uriPDF}}
+          source={{uri:uriPDF}}
           onLoadComplete={(numberOfPages) => {
             console.log(`number of pages: ${numberOfPages}`)
           }}
