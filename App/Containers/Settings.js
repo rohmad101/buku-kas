@@ -112,7 +112,7 @@ function SettingsScreen (props) {
     <View style={styles.container}>
       <Header
         placement='left'
-        leftComponent={<Icon name='menu' color='white' onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())} />}
+        leftComponent={<Icon name='menu' color='white' onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())} />}
         centerComponent={{ text: 'Settings', style: { color: '#fff' } }}
         />
       <ScrollView style={{padding: 12, height: height}}>
