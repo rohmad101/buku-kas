@@ -238,6 +238,36 @@ function DetailLaporanScreen (props) {
   const downloads = fs.dirs.DownloadDir
   const URL = 'https://hercules.aturtoko.id/mytoko/public/'
 
+  if (uriPDF) {
+    return (
+      <View style={{
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 25
+      }}>
+        <Pdf
+          source={{uri: uriPDF}}
+          onLoadComplete={(numberOfPages) => {
+            console.log(`number of pages: ${numberOfPages}`)
+          }}
+          onPageChanged={(page) => {
+            console.log(`current page: ${page}`)
+          }}
+          onError={(error) => {
+            console.log(error)
+          }}
+          onPressLink={(uri) => {
+            console.log(`Link presse: ${uri}`)
+          }}
+          style={{
+            flex: 1,
+            width: width,
+            height: height
+          }} />
+      </View>
+    )
+  }
   return (
     <View style={[styles.container, {alignItems: 'center', backgroundColor: 'whitesmoke'}]}>
       <Header
@@ -462,7 +492,7 @@ function DetailLaporanScreen (props) {
                   ).then((res) => {
                     // the temp file path
                     setPDF(res.path())
-                    console.log('The file saved to ', res.path())
+                    // console.log('The file saved to ', res.path())
                     // Alert.alert(
                     //   "Unduh Laporan berhasil",
                     //   "Apakah ingin membuka laporan ?",
@@ -505,36 +535,6 @@ function DetailLaporanScreen (props) {
                 Undung Laporan
               </Text>
       </TouchableOpacity>
-      {
-          uriPDF
-            ? <View style={{
-              flex: 1,
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginTop: 25
-            }}>
-              <Pdf
-                source={uriPDF}
-                onLoadComplete={(numberOfPages) => {
-                  console.log(`number of pages: ${numberOfPages}`)
-                }}
-                onPageChanged={(page) => {
-                  console.log(`current page: ${page}`)
-                }}
-                onError={(error) => {
-                  console.log(error)
-                }}
-                onPressLink={(uri) => {
-                  console.log(`Link presse: ${uri}`)
-                }}
-                style={{
-                  flex: 1,
-                  width: width,
-                  height: height
-                }} />
-            </View>
-          : null
-        }
 
     </View>
   )
