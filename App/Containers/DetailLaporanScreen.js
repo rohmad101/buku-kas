@@ -233,7 +233,7 @@ function DetailLaporanScreen (props) {
         marginTop: 25
       }}>
         <Pdf
-          source={{uri:uriPDF}}
+          source={{uri: uriPDF}}
           onLoadComplete={(numberOfPages) => {
             console.log(`number of pages: ${numberOfPages}`)
           }}
