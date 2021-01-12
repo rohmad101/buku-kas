@@ -30,7 +30,7 @@ function DetailLaporanScreen (props) {
   const [dataForDownload, setdataForDownload] = useState([])
   const [uriPDF, setPDF] = useState('')
   const { data } = props
-
+  const dateFormat = require("dateformat");
   useEffect(() => {
     setpemasukan(0)
     setpengeluaran(0)
@@ -74,7 +74,7 @@ function DetailLaporanScreen (props) {
           }
         }
         if (selectedValue === 'Tanggal') {
-          if (enddate.toLocaleDateString() >= dat.dateInput && dat.dateInput >= startdate.toLocaleDateString()) {
+          if(dateFormat(enddate, "yyyy-mm-dd")>= dateFormat(dat.dateInput, "yyyy-mm-dd") && dateFormat(dat.dateInput, "yyyy-mm-dd") >= dateFormat(startdate, "yyyy-mm-dd")) {
             if (dat.jenis === 'terima') {
               masuk += parseInt(dat.nominal)
               totalTerima += 1
@@ -103,41 +103,37 @@ function DetailLaporanScreen (props) {
           }
         }
         if (selectedValue === 'Bulan') {
-          if ((startdate.getMonth() + 1 <= new Date(dat.dateInput).getMonth() + 1) &&
-                (enddate.getMonth() + 1 >= new Date(dat.dateInput).getMonth() + 1) &&
-                (startdate.getFullYear() <= new Date(dat.dateInput).getFullYear()) &&
-                (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())
-                ) {
-            if (dat.jenis === 'terima') {
-              masuk += parseInt(dat.nominal)
-              totalTerima += 1
-              totalTransaksi += 1
-              dataDownload.push({
-                'no': dataDownload.length + 1,
-                'tanggal_transaksi': dat.dateInput,
-                'nama_pelanggan': dat.nama,
-                'catatan': ' ',
-                'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
-                'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
-              })
-            } else {
-              keluar += parseInt(dat.nominal)
-              totalPengeluaran += 1
-              totalTransaksi += 1
-              dataDownload.push({
-                'no': dataDownload.length + 1,
-                'tanggal_transaksi': dat.dateInput,
-                'nama_pelanggan': dat.nama,
-                'catatan': ' ',
-                'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
-                'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
-              })
-            }
-          }
+          if(dateFormat(enddate, "yyyy-mm")>= dateFormat(dat.dateInput, "yyyy-mm") && dateFormat(dat.dateInput, "yyyy-mm") >= dateFormat(startdate, "yyyy-mm")) {
+            
+                  if (dat.jenis === 'terima') {
+                    masuk += parseInt(dat.nominal)
+                    totalTerima += 1
+                    totalTransaksi += 1
+                    dataDownload.push({
+                      'no': dataDownload.length + 1,
+                      'tanggal_transaksi': dat.dateInput,
+                      'nama_pelanggan': dat.nama,
+                      'catatan': ' ',
+                      'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
+                      'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
+                    })
+                  } else {
+                    keluar += parseInt(dat.nominal)
+                    totalPengeluaran += 1
+                    totalTransaksi += 1
+                    dataDownload.push({
+                      'no': dataDownload.length + 1,
+                      'tanggal_transaksi': dat.dateInput,
+                      'nama_pelanggan': dat.nama,
+                      'catatan': ' ',
+                      'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
+                      'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
+                    })
+                  }
+                }
         }
         if (selectedValue === 'Tahun') {
-          if ((startdate.getFullYear() <= new Date(dat.dateInput).getFullYear()) &&
-            (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())) {
+          if(dateFormat(enddate, "yyyy")>= dateFormat(dat.dateInput, "yyyy") && dateFormat(dat.dateInput, "yyyy") >= dateFormat(startdate, "yyyy")) {
             if (dat.jenis === 'terima') {
               masuk += parseInt(dat.nominal)
               totalTerima += 1
