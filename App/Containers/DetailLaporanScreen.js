@@ -356,7 +356,7 @@ function DetailLaporanScreen (props) {
                       )
                     }
                     if (selectedValue === 'Tanggal') {
-                      if (enddate.toLocaleDateString() >= dat.dateInput && dat.dateInput >= startdate.toLocaleDateString()) {
+                      if (dateFormat(enddate, 'yyyy-mm-dd') >= dateFormat(dat.dateInput, 'yyyy-mm-dd') && dateFormat(dat.dateInput, 'yyyy-mm-dd') >= dateFormat(startdate, 'yyyy-mm-dd')) {
                         return (
                           <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
@@ -374,32 +374,25 @@ function DetailLaporanScreen (props) {
                       }
                     }
                     if (selectedValue === 'Bulan') {
-                      if (startdate <= new Date(dat.dateInput).getFullYear() <= enddate.getFullYear()) {
-                        if (
-                          (startdate.getMonth() + 1 <= new Date(dat.dateInput).getMonth() + 1) &&
-                          (enddate.getMonth() + 1 >= new Date(dat.dateInput).getMonth() + 1) &&
-                          (startdate.getFullYear() <= new Date(dat.dateInput).getFullYear()) &&
-                          (enddate.getFullYear() >= new Date(dat.dateInput).getFullYear())
-                          ) {
-                          return (
-                            <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
-                              <View style={{width: width * 0.3, alignItems: 'center'}}>
-                                <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                                <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
-                              </View>
-                              <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                                <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? dat.nominal : '-'}</Text>
-                              </View>
-                              <View style={{width: width * 0.3, alignItems: 'center'}}>
-                                <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? dat.nominal : '-'}</Text>
-                              </View>
+                      if (dateFormat(enddate, 'yyyy-mm') >= dateFormat(dat.dateInput, 'yyyy-mm') && dateFormat(dat.dateInput, 'yyyy-mm') >= dateFormat(startdate, 'yyyy-mm')) {
+                        return (
+                          <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
+                            <View style={{width: width * 0.3, alignItems: 'center'}}>
+                              <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
+                              <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
-                          )
-                        }
+                            <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
+                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? dat.nominal : '-'}</Text>
+                            </View>
+                            <View style={{width: width * 0.3, alignItems: 'center'}}>
+                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? dat.nominal : '-'}</Text>
+                            </View>
+                          </View>
+                        )
                       }
                     }
                     if (selectedValue === 'Tahun') {
-                      if (startdate.getFullYear() <= new Date(dat.dateInput).getFullYear() && new Date(dat.dateInput).getFullYear() <= enddate.getFullYear()) {
+                      if (dateFormat(enddate, 'yyyy') >= dateFormat(dat.dateInput, 'yyyy') && dateFormat(dat.dateInput, 'yyyy') >= dateFormat(startdate, 'yyyy')) {
                         return (
                           <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
