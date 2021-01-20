@@ -43,7 +43,9 @@
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
@@ -56,6 +58,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
+            android:exported="true"
             >
         </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
