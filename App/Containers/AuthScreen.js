@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Dimensions, Alert } from 'react-native'
+import { Text, View, Dimensions, Alert, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import {Picker} from '@react-native-community/picker'
 import { Avatar, Accessory, Input } from 'react-native-elements'
@@ -91,14 +91,18 @@ function AuthScreen (props) {
         <Text>Kirim Kode ke</Text>
       </View>
       <View style={{width: width, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row'}}>
-        <Text
-          style={{width: width * 0.4, color: phone.length > 5 ? 'blue' : 'white', backgroundColor: phone.length > 5 ? 'white' : 'grey', textAlign: 'center', padding: 12, borderRadius: 8, borderColor: phone.length > 5 ? 'blue' : 'white', borderWidth: 1}}
-          onPress={() => phone.length > 5 ? Submit() : Alert.alert('please fill phone number first')}
-          >SMS</Text>
-        <Text
-          style={{width: width * 0.4, color: 'white', backgroundColor: phone.length > 5 ? 'blue' : 'grey', textAlign: 'center', padding: 12, borderRadius: 8}}
-          onPress={() => phone.length > 5 ? Submit() : Alert.alert('please fill phone number first')}
-          >WhatsApp</Text>
+        <TouchableOpacity onPress={() => phone.length > 5 ? Submit() : Alert.alert('please fill phone number first')}>
+          <Text
+            style={{width: width * 0.4, color: phone.length > 5 ? 'blue' : 'white', backgroundColor: phone.length > 5 ? 'white' : 'grey', textAlign: 'center', padding: 12, borderRadius: 8, borderColor: phone.length > 5 ? 'blue' : 'white', borderWidth: 1}}
+
+            >SMS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => phone.length > 5 ? Submit() : Alert.alert('please fill phone number first')}>
+          <Text
+            style={{width: width * 0.4, color: 'white', backgroundColor: phone.length > 5 ? 'blue' : 'grey', textAlign: 'center', padding: 12, borderRadius: 8}}
+
+            >WhatsApp</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
