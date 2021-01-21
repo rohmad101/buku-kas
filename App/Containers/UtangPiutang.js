@@ -17,7 +17,7 @@ function UtangPiutang (props) {
   const [selected, setselected] = useState('berikan')
   const [pelanggan, setPelanggan] = useState('')
   const [value, onChangeText] = useState('')
-  const [submitted , setsubmitted] = useState(true)
+  const [submitted, setsubmitted] = useState(true)
 
   const Submit = () => {
     setsubmitted(false)
@@ -201,7 +201,7 @@ function UtangPiutang (props) {
       </View>
 
       <TouchableOpacity
-        onPress={() => submitted ?Submit():null}
+        onPress={() => submitted ? Submit() : null}
         style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: 40, position: 'absolute', bottom: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}>
         <Text style={{color: 'white', fontWeight: '700'}}>Simpan Utang Piutang</Text>
       </TouchableOpacity>
