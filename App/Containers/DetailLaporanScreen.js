@@ -13,7 +13,7 @@ import styles from './Styles/DetailLaporanScreenStyle'
 import RNFetchBlob from 'rn-fetch-blob'
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions'
 import Pdf from 'react-native-pdf'
-import { currencyFormat  } from '../Transforms/currency';
+import { currencyFormat } from '../Transforms/currency'
 
 function DetailLaporanScreen (props) {
   const [pemasukan, setpemasukan] = useState(0)
@@ -281,17 +281,17 @@ function DetailLaporanScreen (props) {
       <View style={{borderWidth: 0.5, borderRadius: 8, width: width * 0.95, height: 200, marginTop: 12, borderColor: 'gray', alignItems: 'center', justifyContent: 'space-around', padding: 12, marginBottom: 20}}>
         <View style={{flexDirection: 'row', width: width * 0.9, alignItems: 'center', padding: 12}}>
           <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
-            <Text style={{color: '#3bff9d', fontWeight: '700'}}>  {currencyFormat(parseInt(pemasukan))}</Text>
+            <Text style={{color: '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
             <Text style={{color: '#3bff9d', fontSize: 10, fontWeight: '700'}}>Pemasukan</Text>
           </View>
           <View style={{width: width * 0.45, alignItems: 'center'}}>
-            <Text style={{color: 'red', fontWeight: '700'}}>  {currencyFormat(parseInt(pengeluaran))}</Text>
+            <Text style={{color: 'red', fontWeight: '700'}}> {currencyFormat(parseInt(pengeluaran))}</Text>
             <Text style={{color: 'red', fontSize: 10, fontWeight: '700'}}>Pengeluaran</Text>
           </View>
         </View>
         <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-around', padding: 12, paddingHorizontal: 100, backgroundColor: '#deffee'}}>
           <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#deffee', fontWeight: '700'}}>Untung</Text>
-          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}>  {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
+          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
         </View>
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -365,10 +365,10 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )
@@ -383,10 +383,10 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )
@@ -401,10 +401,10 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ?  currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )

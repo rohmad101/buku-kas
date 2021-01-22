@@ -15,7 +15,7 @@ import { DrawerActions } from 'react-navigation-drawer'
 import { View } from 'react-native-animatable'
 import { TextInput } from 'react-native-gesture-handler'
 import { bindActionCreators } from 'redux'
-import { currencyFormat  } from '../Transforms/currency';
+import { currencyFormat } from '../Transforms/currency'
 
 function Dashboard (props) {
   const {width, height} = Dimensions.get('screen')
@@ -94,16 +94,16 @@ function Dashboard (props) {
             </View>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'ghostwhite'}}>
-            <Text style={{backgroundColor: category === 'semua' ? '#1589FF' : 'lightgrey', color: category === 'semua' ? 'white' : 'grey', padding: width*0.025, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'semua' ? '#1589FF' : 'lightgrey', color: category === 'semua' ? 'white' : 'grey', padding: width * 0.025, borderRadius: 20}}
               onPress={() => setcategory('semua')}
             >Semua</Text>
-            <Text style={{backgroundColor: category === 'utang' ? '#1589FF' : 'lightgrey', color: category === 'utang' ? 'white' : 'tomato', padding: width*0.025, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'utang' ? '#1589FF' : 'lightgrey', color: category === 'utang' ? 'white' : 'tomato', padding: width * 0.025, borderRadius: 20}}
               onPress={() => setcategory('utang')}
             >Utang Pelanggan</Text>
-            <Text style={{backgroundColor: category === 'usaha' ? '#1589FF' : 'lightgrey', color: category === 'usaha' ? 'white' : 'green', padding: width*0.025, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'usaha' ? '#1589FF' : 'lightgrey', color: category === 'usaha' ? 'white' : 'green', padding: width * 0.025, borderRadius: 20}}
               onPress={() => setcategory('usaha')}
             >Utang Saya</Text>
-            <Text style={{backgroundColor: category === 'lunas' ? '#1589FF' : 'lightgrey', color: category === 'lunas' ? 'white' : 'black', padding: width*0.025, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'lunas' ? '#1589FF' : 'lightgrey', color: category === 'lunas' ? 'white' : 'black', padding: width * 0.025, borderRadius: 20}}
               onPress={() => setcategory('lunas')}
             >Lunas</Text>
           </View>

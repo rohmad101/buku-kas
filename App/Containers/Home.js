@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
 
-import { currencyFormat  } from '../Transforms/currency';
+import { currencyFormat } from '../Transforms/currency'
 // Styles
 import styles from './Styles/HomeStyle'
 
@@ -64,16 +64,16 @@ function HomeScreen (props) {
           <View style={{flexDirection: 'row', width: width * 0.9, alignItems: 'center', padding: 12}}>
             <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
               <Text style={{fontSize: 10}}>Pemasukan</Text>
-              <Text style={{color: '#3bff9d', fontWeight: '700'}}>  {currencyFormat(parseInt(pemasukan))}</Text>
+              <Text style={{color: '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
             </View>
             <View style={{width: width * 0.45, alignItems: 'center'}}>
               <Text style={{fontSize: 10}}>Pengeluaran</Text>
-              <Text style={{color: 'red', fontWeight: '700'}}>  {currencyFormat(parseInt(pengeluaran))}</Text>
+              <Text style={{color: 'red', fontWeight: '700'}}> {currencyFormat(parseInt(pengeluaran))}</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-between', padding: 12, backgroundColor: '#deffee'}}>
             <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}>Untung</Text>
-            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}>  {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
+            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
           </View>
           <TouchableOpacity
             onPress={() => props.navigation.navigate('DetailLaporanScreen')}
@@ -96,7 +96,7 @@ function HomeScreen (props) {
                       {index === 0 && current === dat.dateInput
                       ? <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'whitesmoke', height: 40}}>
                         <Text style={{width: width * 0.3, textAlign: 'center', color: 'grey'}}>{dat.dateInput}</Text>
-                        <Text style={{width: width * 0.5, textAlign: 'center', color: sum[ix] < 0 ? 'red' : '#3bff9d'}}>Untung   {currencyFormat(parseInt(sum[ix]))}</Text>
+                        <Text style={{width: width * 0.5, textAlign: 'center', color: sum[ix] < 0 ? 'red' : '#3bff9d'}}>Untung {currencyFormat(parseInt(sum[ix]))}</Text>
                       </View> : null
                     }
                       {index === 0
