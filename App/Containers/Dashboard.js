@@ -15,6 +15,7 @@ import { DrawerActions } from 'react-navigation-drawer'
 import { View } from 'react-native-animatable'
 import { TextInput } from 'react-native-gesture-handler'
 import { bindActionCreators } from 'redux'
+import { currencyFormat  } from '../Transforms/currency';
 
 function Dashboard (props) {
   const {width, height} = Dimensions.get('screen')
@@ -28,6 +29,7 @@ function Dashboard (props) {
 //   },
 //   [data]
 // );
+
   return (
     <View style={styles.container}>
       <Header
@@ -48,14 +50,14 @@ function Dashboard (props) {
                 <View style={{width: width * 0.45}}>
                   <View style={{flexDirection: 'row'}}>
                     <Icon name='trending-down' color='green' />
-                    <Text style={{color: 'green'}}>Rp 0</Text>
+                    <Text style={{color: 'green'}}>{currencyFormat(0)}</Text>
                   </View>
                   <Text style={{color: 'green'}}>Total Utang Saya</Text>
                 </View>
                 <View style={{width: width * 0.5}}>
                   <View style={{flexDirection: 'row'}}>
                     <Icon name='trending-up' color='red' />
-                    <Text style={{color: 'red'}}>Rp 0</Text>
+                    <Text style={{color: 'red'}}>{currencyFormat(0)}</Text>
                   </View>
                   <Text style={{color: 'red'}}>Total Utang Pelanggan</Text>
                 </View>
@@ -92,16 +94,16 @@ function Dashboard (props) {
             </View>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'ghostwhite'}}>
-            <Text style={{backgroundColor: category === 'semua' ? '#1589FF' : 'lightgrey', color: category === 'semua' ? 'white' : 'grey', padding: 12, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'semua' ? '#1589FF' : 'lightgrey', color: category === 'semua' ? 'white' : 'grey', padding: width*0.025, borderRadius: 20}}
               onPress={() => setcategory('semua')}
             >Semua</Text>
-            <Text style={{backgroundColor: category === 'utang' ? '#1589FF' : 'lightgrey', color: category === 'utang' ? 'white' : 'tomato', padding: 12, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'utang' ? '#1589FF' : 'lightgrey', color: category === 'utang' ? 'white' : 'tomato', padding: width*0.025, borderRadius: 20}}
               onPress={() => setcategory('utang')}
             >Utang Pelanggan</Text>
-            <Text style={{backgroundColor: category === 'usaha' ? '#1589FF' : 'lightgrey', color: category === 'usaha' ? 'white' : 'green', padding: 12, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'usaha' ? '#1589FF' : 'lightgrey', color: category === 'usaha' ? 'white' : 'green', padding: width*0.025, borderRadius: 20}}
               onPress={() => setcategory('usaha')}
             >Utang Saya</Text>
-            <Text style={{backgroundColor: category === 'lunas' ? '#1589FF' : 'lightgrey', color: category === 'lunas' ? 'white' : 'black', padding: 12, borderRadius: 20}}
+            <Text style={{backgroundColor: category === 'lunas' ? '#1589FF' : 'lightgrey', color: category === 'lunas' ? 'white' : 'black', padding: width*0.025, borderRadius: 20}}
               onPress={() => setcategory('lunas')}
             >Lunas</Text>
           </View>
@@ -148,7 +150,7 @@ function Dashboard (props) {
                       <Text>{dat.nama}</Text>
                     </View>
                     <View style={{flexDirection: 'column', alignItems: 'center'}}>
-                      <Text style={{color: dat.jenis === 'terima' ? 'green' : 'red', fontSize: 16, fontWeight: '700'}}>Rp. {dat.nominal}</Text>
+                      <Text style={{color: dat.jenis === 'terima' ? 'green' : 'red', fontSize: 16, fontWeight: '700'}}> {currencyFormat(parseInt(dat.nominal))}</Text>
                       <Text style={{fontSize: 10, color: 'gray'}}>{dat.jenis}</Text>
                     </View>
                   </TouchableOpacity>
