@@ -421,7 +421,7 @@ function DetailLaporanScreen (props) {
                         <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                           <View style={{width: width * 0.3, alignItems: 'center'}}>
                             <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                            <Text style={{fontSize: 10}}>{currencyFormat(parseInt(dat.dateInput))}</Text>
+                            <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                           </View>
                           <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
                             <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>

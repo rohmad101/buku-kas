@@ -5,8 +5,7 @@ import { Text, View, Dimensions, TouchableOpacity, TextInput, Alert } from 'reac
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
-
-import { currencyFormat } from '../Transforms/currency'
+import CurrencyInput from 'react-native-currency-input'
 // I18n
 import { CheckBox, Header, Icon } from 'react-native-elements'
 import { bindActionCreators } from 'redux'
@@ -15,7 +14,7 @@ function UtangPiutang (props) {
   const {width, height} = Dimensions.get('screen')
   const [selected, setselected] = useState('berikan')
   const [pelanggan, setPelanggan] = useState('')
-  const [value, onChangeText] = useState('')
+  const [value, setValue] = useState('')
   const [catatan, setcatatan] = useState('')
   const [submitted, setsubmitted] = useState(true)
 
@@ -178,6 +177,7 @@ function UtangPiutang (props) {
             placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
             value={pelanggan}
             numberOfLines={1}
+
             maxLength={40}
             style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: 24}}
               />
@@ -190,16 +190,32 @@ function UtangPiutang (props) {
         <Icon name='chevron-right' color={selected === 'berikan' ? 'red' : 'green'} size={30} style={{width: 40}} />
         <View style={{flexDirection: 'column'}}>
           <Text style={{fontSize: 12}}>{selected === 'berikan' ? 'Memberikan' : 'Menerima'}</Text>
-          <TextInput
-            placeholder='0'
-            onChangeText={text => onChangeText(text)}
-            keyboardType='numeric'
-            placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
-            value={value > 0 ? currencyFormat(parseInt(value)) : '0'}
-            numberOfLines={1}
-            maxLength={12}
-            style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: 24}}
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{fontSize: 24, color: selected === 'berikan' ? 'red' : 'green'}}>Rp. </Text>
+            {/* <TextInput
+              placeholder='0'
+              onChangeText={text => onChangeText(parseInt(text))}
+              keyboardType='numeric'
+              placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
+              value={value}
+              numberOfLines={1}
+              maxLength={12}
+              style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: 24}}
+              />   */}
+            <CurrencyInput
+              value={value}
+              onChangeValue={setValue}
+              // unit="Rp. "
+              delimiter=','
+              separator='.'
+              precision={2}
+              onChangeText={(formattedValue) => {
+                console.log(formattedValue) // $2,310.46
+              }}
+              style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: 24, marginBottom: -12}}
             />
+          </View>
+
         </View>
       </View>
       <View style={{
@@ -207,7 +223,7 @@ function UtangPiutang (props) {
       }}>
         {/* <Icon name='chevron-right' color={selected === 'berikan' ? 'red' : 'green'} size={30} style={{width: 40}} /> */}
         <View style={{flexDirection: 'column'}}>
-          <Text style={{fontSize: 12, marginHorizontal: 40, marginTop: 12}}>Catatan</Text>
+          <Text style={{fontSize: 12, marginHorizontal: 40, marginTop: 24}}>Catatan</Text>
           <TextInput
             placeholder='catatan'
             onChangeText={text => setcatatan(text)}

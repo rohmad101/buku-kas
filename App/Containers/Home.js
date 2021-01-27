@@ -72,8 +72,8 @@ function HomeScreen (props) {
             </View>
           </View>
           <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-between', padding: 12, backgroundColor: '#deffee'}}>
-            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}>Untung</Text>
-            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
+            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}>Untung</Text>
+            <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
           </View>
           <TouchableOpacity
             onPress={() => props.navigation.navigate('DetailLaporanScreen')}
@@ -96,7 +96,7 @@ function HomeScreen (props) {
                       {index === 0 && current === dat.dateInput
                       ? <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'whitesmoke', height: 40}}>
                         <Text style={{width: width * 0.3, textAlign: 'center', color: 'grey'}}>{dat.dateInput}</Text>
-                        <Text style={{width: width * 0.5, textAlign: 'center', color: sum[ix] < 0 ? 'red' : '#3bff9d'}}>Untung {currencyFormat(parseInt(sum[ix]))}</Text>
+                        <Text style={{width: width * 0.5, textAlign: 'center', color: sum[ix] < 0 ? 'red' : 'green', fontWeight: '700'}}>Untung {currencyFormat(parseInt(sum[ix]))}</Text>
                       </View> : null
                     }
                       {index === 0

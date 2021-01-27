@@ -50,7 +50,7 @@ function Dashboard (props) {
                 <View style={{width: width * 0.45}}>
                   <View style={{flexDirection: 'row'}}>
                     <Icon name='trending-down' color='green' />
-                    <Text style={{color: 'green'}}>{currencyFormat(0)}</Text>
+                    <Text style={{color: 'green', fontWeight: '700'}}>{currencyFormat(0)}</Text>
                   </View>
                   <Text style={{color: 'green'}}>Total Utang Saya</Text>
                 </View>
