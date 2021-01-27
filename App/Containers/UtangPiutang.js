@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
 
-// Styles
-
+import { currencyFormat } from '../Transforms/currency'
 // I18n
 import { CheckBox, Header, Icon } from 'react-native-elements'
 import { bindActionCreators } from 'redux'
@@ -17,6 +16,7 @@ function UtangPiutang (props) {
   const [selected, setselected] = useState('berikan')
   const [pelanggan, setPelanggan] = useState('')
   const [value, onChangeText] = useState('')
+  const [catatan, setcatatan] = useState('')
   const [submitted, setsubmitted] = useState(true)
 
   const Submit = () => {
@@ -55,6 +55,7 @@ function UtangPiutang (props) {
                'nama': pelanggan.trim(),
                'nominal': value,
                'jenis': stat,
+               'catatan': catatan,
                'dateInput': new Date().toLocaleDateString()
              }
            ]
@@ -63,6 +64,7 @@ function UtangPiutang (props) {
            'nama': pelanggan.trim(),
            'nominal': value,
            'jenis': stat,
+           'catatan': catatan,
            'dateInput': new Date().toLocaleDateString()
          }
        ]
@@ -93,6 +95,7 @@ function UtangPiutang (props) {
                   'nama': pelanggan.trim(),
                   'nominal': value,
                   'jenis': selected,
+                  'catatan': catatan,
                   'dateInput': new Date().toLocaleDateString()
                 }
               ],
@@ -113,6 +116,7 @@ function UtangPiutang (props) {
                 'nama': pelanggan.trim(),
                 'nominal': value,
                 'jenis': selected,
+                'catatan': catatan,
                 'dateInput': new Date().toLocaleDateString()
               }
             ],
@@ -184,7 +188,6 @@ function UtangPiutang (props) {
         width: width, flexDirection: 'row', alignItems: 'center'
       }}>
         <Icon name='chevron-right' color={selected === 'berikan' ? 'red' : 'green'} size={30} style={{width: 40}} />
-        <Text style={{fontSize: 24, color: selected === 'berikan' ? 'red' : 'green', borderBottomWidth: 0.7, height: 48, marginTop: 16, fontWeight: '700'}}>Rp</Text>
         <View style={{flexDirection: 'column'}}>
           <Text style={{fontSize: 12}}>{selected === 'berikan' ? 'Memberikan' : 'Menerima'}</Text>
           <TextInput
@@ -192,10 +195,27 @@ function UtangPiutang (props) {
             onChangeText={text => onChangeText(text)}
             keyboardType='numeric'
             placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
-            value={value}
+            value={value > 0 ? currencyFormat(parseInt(value)) : '0'}
             numberOfLines={1}
             maxLength={12}
             style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: 24}}
+            />
+        </View>
+      </View>
+      <View style={{
+        width: width, flexDirection: 'row', alignItems: 'center'
+      }}>
+        {/* <Icon name='chevron-right' color={selected === 'berikan' ? 'red' : 'green'} size={30} style={{width: 40}} /> */}
+        <View style={{flexDirection: 'column'}}>
+          <Text style={{fontSize: 12, marginHorizontal: 40, marginTop: 12}}>Catatan</Text>
+          <TextInput
+            placeholder='catatan'
+            onChangeText={text => setcatatan(text)}
+            keyboardType='numeric'
+            // placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
+            value={catatan}
+            multiline
+            style={{borderWidth: 0.7, width: width * 0.9, minHeight: 200, color: 'black', fontSize: 24, marginHorizontal: 20}}
             />
         </View>
       </View>

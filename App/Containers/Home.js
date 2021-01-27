@@ -64,7 +64,7 @@ function HomeScreen (props) {
           <View style={{flexDirection: 'row', width: width * 0.9, alignItems: 'center', padding: 12}}>
             <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
               <Text style={{fontSize: 10}}>Pemasukan</Text>
-              <Text style={{color: '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
+              <Text style={{color: 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
             </View>
             <View style={{width: width * 0.45, alignItems: 'center'}}>
               <Text style={{fontSize: 10}}>Pengeluaran</Text>
@@ -112,7 +112,7 @@ function HomeScreen (props) {
                           <Text>{dat.nama}</Text>
                         </View>
                         <View style={{width: width * 0.4, alignItems: 'center'}}>
-                          <Text style={{color: '#3bff9d'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                          <Text style={{color: 'green'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                         </View>
                         <View style={{width: width * 0.3, alignItems: 'center'}}>
                           <Text style={{color: 'red'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>

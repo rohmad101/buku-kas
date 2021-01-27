@@ -32,6 +32,81 @@ function DetailLaporanScreen (props) {
   const [uriPDF, setPDF] = useState('')
   const { data } = props
   const dateFormat = require('dateformat')
+
+  const downloadPDF = async() => {
+    await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(() => {
+          // …
+    })
+    await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
+        .then((result) => {
+          switch (result) {
+            case RESULTS.UNAVAILABLE:
+              console.log('This feature is not available (on this device / in this context)')
+              break
+            case RESULTS.DENIED:
+              console.log('The permission has not been requested / is denied but requestable')
+              break
+            case RESULTS.LIMITED:
+              console.log('The permission is limited: some actions are possible')
+              break
+            case RESULTS.GRANTED:
+              console.log('The permission is granted')
+
+              config({
+                // add this option that makes response data to be stored as a file,
+                // this is much more performant.
+                fileCache: true,
+                path: downloads + '/laporanbukukas.pdf',
+                overwrite: true,
+                indicator: true,
+                addAndroidDownloads: {
+                  // Show notification when response data transmitted
+                  notification: true,
+                  // Title of download notification
+                  title: 'Laporan Dokumen BukuKas Berhasil!',
+                  // File description (not notification description)
+                  description: downloads + '/laporanbukukas.pdf',
+                  // Make the file scannable  by media scanner
+                  mediaScannable: false
+
+                }
+              })
+              .fetch('POST', URL + 'mt/dynamic_pdf/pdf', {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              JSON.stringify({
+                'range_tanggal': startdate.toLocaleDateString() + ' - ' + enddate.toLocaleDateString(),
+                'data': dataForDownload
+              })
+              ).then((res) => {
+                // the temp file path
+                setPDF(res.path())
+                // console.log('The file saved to ', res.path())
+                // Alert.alert(
+                //   "Unduh Laporan berhasil",
+                //   "Apakah ingin membuka laporan ?",
+                //   [
+                //     {
+                //       text: "Cancel",
+                //       onPress: () => console.log("Cancel Pressed"),
+                //       style: "cancel"
+                //     },
+                //     { text: "OK", onPress: () => RNFS.readFile(res.path()) }
+                //   ],
+                //   { cancelable: false }
+                // )
+              })
+              break
+            case RESULTS.BLOCKED:
+              console.log('The permission is denied and not requestable anymore')
+              break
+          }
+        })
+        .catch(() => {
+          // …
+        })
+  }
   useEffect(() => {
     setpemasukan(0)
     setpengeluaran(0)
@@ -56,7 +131,7 @@ function DetailLaporanScreen (props) {
               'no': dataDownload.length + 1,
               'tanggal_transaksi': dat.dateInput,
               'nama_pelanggan': dat.nama,
-              'catatan': ' ',
+              'catatan': dat.catatan ? dat.catatan : '',
               'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
               'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
             })
@@ -68,7 +143,7 @@ function DetailLaporanScreen (props) {
               'no': dataDownload.length + 1,
               'tanggal_transaksi': dat.dateInput,
               'nama_pelanggan': dat.nama,
-              'catatan': ' ',
+              'catatan': dat.catatan ? dat.catatan : '',
               'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
               'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
             })
@@ -84,7 +159,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -96,7 +171,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -113,7 +188,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -125,7 +200,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -142,7 +217,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -154,7 +229,7 @@ function DetailLaporanScreen (props) {
                 'no': dataDownload.length + 1,
                 'tanggal_transaksi': dat.dateInput,
                 'nama_pelanggan': dat.nama,
-                'catatan': ' ',
+                'catatan': dat.catatan ? dat.catatan : '',
                 'terima': dat.jenis === 'berikan' ? 0 : dat.nominal,
                 'berikan': dat.jenis === 'berikan' ? dat.nominal : 0
               })
@@ -169,6 +244,7 @@ function DetailLaporanScreen (props) {
     settotalTransaksiTerima(totalTerima)
     settotalTransaksiPengeluaran(totalPengeluaran)
     setdataForDownload(dataDownload)
+    console.log('dataDownload', dataDownload)
   }, [data, selectedValue, startdate, enddate])
 
   const onChangeStart = (event, selectedDate) => {
@@ -281,8 +357,8 @@ function DetailLaporanScreen (props) {
       <View style={{borderWidth: 0.5, borderRadius: 8, width: width * 0.95, height: 200, marginTop: 12, borderColor: 'gray', alignItems: 'center', justifyContent: 'space-around', padding: 12, marginBottom: 20}}>
         <View style={{flexDirection: 'row', width: width * 0.9, alignItems: 'center', padding: 12}}>
           <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
-            <Text style={{color: '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
-            <Text style={{color: '#3bff9d', fontSize: 10, fontWeight: '700'}}>Pemasukan</Text>
+            <Text style={{color: 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
+            <Text style={{color: 'green', fontSize: 10, fontWeight: '700'}}>Pemasukan</Text>
           </View>
           <View style={{width: width * 0.45, alignItems: 'center'}}>
             <Text style={{color: 'red', fontWeight: '700'}}> {currencyFormat(parseInt(pengeluaran))}</Text>
@@ -290,8 +366,8 @@ function DetailLaporanScreen (props) {
           </View>
         </View>
         <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-around', padding: 12, paddingHorizontal: 100, backgroundColor: '#deffee'}}>
-          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#deffee', fontWeight: '700'}}>Untung</Text>
-          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : '#3bff9d', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
+          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}>Untung</Text>
+          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
         </View>
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -326,7 +402,7 @@ function DetailLaporanScreen (props) {
           <Text style={{color: 'grey'}}>{totalTransaksi} Transaksi</Text>
         </View>
         <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: '#deffee'}}>
-          <Text style={{width: width * 0.4, textAlign: 'center', paddingVertical: 12, backgroundColor: '#deffee', color: '#3bff9d', fontWeight: '700'}}>Pemasukan</Text>
+          <Text style={{width: width * 0.4, textAlign: 'center', paddingVertical: 12, backgroundColor: '#deffee', color: 'green', fontWeight: '700'}}>Pemasukan</Text>
           <Text style={{color: 'grey'}}>{totalTransaksiTerima} Transaksi</Text>
         </View>
         <View style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -348,7 +424,7 @@ function DetailLaporanScreen (props) {
                             <Text style={{fontSize: 10}}>{currencyFormat(parseInt(dat.dateInput))}</Text>
                           </View>
                           <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                            <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                            <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                           </View>
                           <View style={{width: width * 0.3, alignItems: 'center'}}>
                             <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
@@ -365,7 +441,7 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
                               <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
@@ -383,7 +459,7 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
                               <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
@@ -401,7 +477,7 @@ function DetailLaporanScreen (props) {
                               <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: '#3bff9d', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
                               <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
@@ -418,80 +494,7 @@ function DetailLaporanScreen (props) {
         </ScrollView>
       </View>
       <TouchableOpacity
-        onPress={async() => {
-          await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(() => {
-              // …
-          })
-          await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
-            .then((result) => {
-              switch (result) {
-                case RESULTS.UNAVAILABLE:
-                  console.log('This feature is not available (on this device / in this context)')
-                  break
-                case RESULTS.DENIED:
-                  console.log('The permission has not been requested / is denied but requestable')
-                  break
-                case RESULTS.LIMITED:
-                  console.log('The permission is limited: some actions are possible')
-                  break
-                case RESULTS.GRANTED:
-                  console.log('The permission is granted')
-
-                  config({
-                    // add this option that makes response data to be stored as a file,
-                    // this is much more performant.
-                    fileCache: true,
-                    path: downloads + '/laporanbukukas.pdf',
-                    overwrite: true,
-                    indicator: true,
-                    addAndroidDownloads: {
-                      // Show notification when response data transmitted
-                      notification: true,
-                      // Title of download notification
-                      title: 'Laporan Dokumen BukuKas Berhasil!',
-                      // File description (not notification description)
-                      description: downloads + '/laporanbukukas.pdf',
-                      // Make the file scannable  by media scanner
-                      mediaScannable: false
-
-                    }
-                  })
-                  .fetch('POST', URL + 'mt/dynamic_pdf/pdf', {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                  },
-                  JSON.stringify({
-                    'range_tanggal': startdate.toLocaleDateString() + ' - ' + enddate.toLocaleDateString(),
-                    'data': dataForDownload
-                  })
-                  ).then((res) => {
-                    // the temp file path
-                    setPDF(res.path())
-                    // console.log('The file saved to ', res.path())
-                    // Alert.alert(
-                    //   "Unduh Laporan berhasil",
-                    //   "Apakah ingin membuka laporan ?",
-                    //   [
-                    //     {
-                    //       text: "Cancel",
-                    //       onPress: () => console.log("Cancel Pressed"),
-                    //       style: "cancel"
-                    //     },
-                    //     { text: "OK", onPress: () => RNFS.readFile(res.path()) }
-                    //   ],
-                    //   { cancelable: false }
-                    // )
-                  })
-                  break
-                case RESULTS.BLOCKED:
-                  console.log('The permission is denied and not requestable anymore')
-                  break
-              }
-            })
-            .catch(() => {
-              // …
-            })
-        }}
+        onPress={() => downloadPDF()}
         style={{
           position: 'absolute',
           bottom: 10,
