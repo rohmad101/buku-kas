@@ -71,7 +71,7 @@ function HomeScreen (props) {
               <Text style={{color: 'red', fontWeight: '700'}}> {currencyFormat(parseInt(pengeluaran))}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-between', padding: 12, backgroundColor: '#deffee'}}>
+          <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-around', padding: 12, paddingHorizontal:width*0.2, backgroundColor: '#deffee'}}>
             <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}>Untung</Text>
             <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
           </View>

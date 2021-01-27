@@ -22,7 +22,7 @@ function Dashboard (props) {
   const [visibleSearch, setvisibleSearch] = useState(false)
   const [category, setcategory] = useState('semua')
   const {data} = props
-
+  const flatList = React.useRef(null)
 // useEffect(
 //   () => {
 //     props.dataLocalSuccess([])
@@ -109,7 +109,13 @@ function Dashboard (props) {
           </View>
           <View style={{width: width, height: height * 0.3, alignItems: 'center', marginTop: 12}}>
 
-            <ScrollView>
+            <ScrollView
+             ref={flatList}
+             scrollToEnd={true}
+             onContentSizeChange={() => {
+              flatList.current.scrollToEnd();
+          }}
+            >
               {data && data.length > 0
 
                 ? data.map((dat, index) => (
