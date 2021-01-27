@@ -110,11 +110,11 @@ function Dashboard (props) {
           <View style={{width: width, height: height * 0.3, alignItems: 'center', marginTop: 12}}>
 
             <ScrollView
-             ref={flatList}
-             scrollToEnd={true}
-             onContentSizeChange={() => {
-              flatList.current.scrollToEnd();
-          }}
+              ref={flatList}
+              scrollToEnd
+              onContentSizeChange={() => {
+                flatList.current.scrollToEnd()
+              }}
             >
               {data && data.length > 0
 
