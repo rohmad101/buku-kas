@@ -272,8 +272,8 @@ function DetailLaporanScreen (props) {
       style={{flexDirection: 'row', alignItems: 'center', width: width * 0.35, justifyContent: 'space-between'}}>
       <Icon name='date-range' color='blue' />
       <View style={{flexDirection: 'column'}}>
-        <Text>Tanggal Mulai</Text>
-        <Text>{startdate.toLocaleDateString()}</Text>
+        <Text style={{fontSize: width * 0.035}}>Tanggal Mulai</Text>
+        <Text style={{fontSize: width * 0.035}}>{startdate.toLocaleDateString()}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -284,8 +284,8 @@ function DetailLaporanScreen (props) {
       style={{flexDirection: 'row', alignItems: 'center', width: width * 0.35, justifyContent: 'space-between'}}>
       <Icon name='date-range' color='blue' />
       <View style={{flexDirection: 'column'}}>
-        <Text>Tanggal Akhir</Text>
-        <Text>{enddate.toLocaleDateString()}</Text>
+        <Text style={{fontSize: width * 0.035}}>Tanggal Akhir</Text>
+        <Text style={{fontSize: width * 0.035}}>{enddate.toLocaleDateString()}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -321,7 +321,8 @@ function DetailLaporanScreen (props) {
           style={{
             flex: 1,
             width: width,
-            height: height
+            height: height,
+            fontSize: width * 0.035
           }} />
       </View>
     )
@@ -331,7 +332,7 @@ function DetailLaporanScreen (props) {
       <Header
         placement='left'
         leftComponent={<Icon name='arrow-back' color='white' onPress={() => props.navigation.pop()} />}
-        centerComponent={{ text: 'Detail Laporan Catatan', style: { color: '#fff', fontSize: 20, fontWeight: '700' } }}
+        centerComponent={{ text: 'Detail Laporan Catatan', style: { color: '#fff', fontSize: width * 0.035, fontWeight: '700' } }}
 
         />
       {showStartDate && (
@@ -342,6 +343,7 @@ function DetailLaporanScreen (props) {
         is24Hour
         display='default'
         onChange={onChangeStart}
+        style={{fontSize: width * 0.035}}
           />
         )}
       {showEndDate && (
@@ -352,39 +354,46 @@ function DetailLaporanScreen (props) {
         is24Hour
         display='default'
         onChange={onChangeEnd}
+        style={{fontSize: width * 0.035}}
           />
         )}
-      <View style={{borderWidth: 0.5, borderRadius: 8, width: width * 0.95, height: 200, marginTop: 12, borderColor: 'gray', alignItems: 'center', justifyContent: 'space-around', padding: 12, marginBottom: 20}}>
-        <View style={{flexDirection: 'row', width: width * 0.9, alignItems: 'center', padding: 12}}>
-          <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
-            <Text style={{color: 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan))}</Text>
-            <Text style={{color: 'green', fontSize: 10, fontWeight: '700'}}>Pemasukan</Text>
-          </View>
-          <View style={{width: width * 0.45, alignItems: 'center'}}>
-            <Text style={{color: 'red', fontWeight: '700'}}> {currencyFormat(parseInt(pengeluaran))}</Text>
-            <Text style={{color: 'red', fontSize: 10, fontWeight: '700'}}>Pengeluaran</Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', width: width * 0.895, alignItems: 'center', justifyContent: 'space-around', padding: 12, paddingHorizontal: 100, backgroundColor: '#deffee'}}>
-          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}>Untung</Text>
-          <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700'}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={{width: width * 0.5, textAlign: 'center'}}>Pilih Tanggal Laporan</Text>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 50, width: width * 0.5 }}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
 
-            >
-          <Picker.Item label='Semua' value='Semua' />
-          <Picker.Item label='Tanggal' value='Tanggal' />
-          <Picker.Item label='Bulan' value='Bulan' />
-          <Picker.Item label='Tahun' value='Tahun' />
-        </Picker>
-      </View>
-      {selectedValue !== 'Semua'
+      <ScrollView>
+        <View style={{alignItems: 'center'}}>
+          <View style={{borderWidth: 0.5, borderRadius: 8, width: width * 0.95, height: height * 0.275, marginTop: 12, borderColor: 'gray', alignItems: 'center', justifyContent: 'space-around'}}>
+            <View style={{flexDirection: 'row', width: width, alignItems: 'center', padding: 12}}>
+              <View style={{width: width * 0.45, alignItems: 'center', justifyContent: 'space-around'}}>
+                <Text style={{color: 'green', fontWeight: '700', fontSize: width * 0.035}}> {currencyFormat(parseInt(pemasukan))}</Text>
+                <Text style={{color: 'green', fontSize: width * 0.035, fontWeight: '700'}}>Pemasukan</Text>
+              </View>
+              <View style={{width: width * 0.45, alignItems: 'center'}}>
+                <Text style={{color: 'red', fontWeight: '700', fontSize: width * 0.035}}> {currencyFormat(parseInt(pengeluaran))}</Text>
+                <Text style={{color: 'red', fontSize: width * 0.035, fontWeight: '700'}}>Pengeluaran</Text>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center', padding: 12, backgroundColor: '#deffee'}}>
+              <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700', fontSize: width * 0.035}}>Untung</Text>
+              <View style={{width: width * 0.05}} />
+              <Text style={{color: pemasukan - pengeluaran < 0 ? 'red' : 'green', fontWeight: '700', fontSize: width * 0.035}}> {currencyFormat(parseInt(pemasukan - pengeluaran))}</Text>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{width: width * 0.5, textAlign: 'center', fontSize: width * 0.035}}>Pilih Tanggal Laporan</Text>
+            <Picker
+              selectedValue={selectedValue}
+              style={{ height: 50, width: width * 0.5 }}
+              itemStyle={{ fontSize: width * 0.02 }}
+              onValueChange={(itemValue) => setSelectedValue(itemValue)}
+
+              >
+              <Picker.Item label='Semua' value='Semua' />
+              <Picker.Item label='Tanggal' value='Tanggal' />
+              <Picker.Item label='Bulan' value='Bulan' />
+              <Picker.Item label='Tahun' value='Tahun' />
+            </Picker>
+          </View>
+        </View>
+        {selectedValue !== 'Semua'
           ? <View style={{flexDirection: 'row'}}>
             <ButtonGroup
               onPress={updateIndex}
@@ -396,23 +405,21 @@ function DetailLaporanScreen (props) {
           </View>
         : null}
 
-      <View style={{flexDirection: 'row', width: width, alignItems: 'center'}}>
-        <View style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{width: width * 0.3, textAlign: 'center', color: 'black', paddingVertical: 12, fontWeight: '700'}}>Catatan</Text>
-          <Text style={{color: 'grey'}}>{totalTransaksi} Transaksi</Text>
+        <View style={{flexDirection: 'row', width: width, alignItems: 'center'}}>
+          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <Text style={{width: width * 0.3, textAlign: 'center', color: 'black', paddingVertical: 12, fontWeight: '700', fontSize: width * 0.035}}>Catatan</Text>
+            <Text style={{color: 'grey', fontSize: width * 0.035}}>{totalTransaksi} Transaksi</Text>
+          </View>
+          <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: '#deffee'}}>
+            <Text style={{width: width * 0.4, textAlign: 'center', paddingVertical: 12, backgroundColor: '#deffee', color: 'green', fontWeight: '700', fontSize: width * 0.035}}>Pemasukan</Text>
+            <Text style={{color: 'grey', fontSize: width * 0.035}}>{totalTransaksiTerima} Transaksi</Text>
+          </View>
+          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <Text style={{width: width * 0.3, textAlign: 'center', paddingVertical: 12, color: 'red', fontWeight: '700', fontSize: width * 0.035}}>Pengeluaran</Text>
+            <Text style={{color: 'grey', fontSize: width * 0.035}}>{totalTransaksiPengeluaran} Transaksi</Text>
+          </View>
         </View>
-        <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: '#deffee'}}>
-          <Text style={{width: width * 0.4, textAlign: 'center', paddingVertical: 12, backgroundColor: '#deffee', color: 'green', fontWeight: '700'}}>Pemasukan</Text>
-          <Text style={{color: 'grey'}}>{totalTransaksiTerima} Transaksi</Text>
-        </View>
-        <View style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{width: width * 0.3, textAlign: 'center', paddingVertical: 12, color: 'red', fontWeight: '700'}}>Pengeluaran</Text>
-          <Text style={{color: 'grey'}}>{totalTransaksiPengeluaran} Transaksi</Text>
-        </View>
-      </View>
-
-      <View style={{width: width, height: selectedValue === 'Semua' ? height * 0.35 + 50 : height * 0.35, flexDirection: 'column'}}>
-        <ScrollView>
+        <View style={{width: width, height: selectedValue === 'Semua' ? height * 0.45 + 50 : height * 0.5, flexDirection: 'column'}}>
           {
                 data.map((data) => {
                   return data.history.map((dat) => {
@@ -420,14 +427,14 @@ function DetailLaporanScreen (props) {
                       return (
                         <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                           <View style={{width: width * 0.3, alignItems: 'center'}}>
-                            <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                            <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
+                            <Text style={{ fontWeight: '700', fontSize: width * 0.035 }}>{dat.nama}</Text>
+                            <Text style={{ fontSize: width * 0.035 }}>{dat.dateInput}</Text>
                           </View>
-                          <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                            <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                          <View style={{ width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24 }}>
+                            <Text style={{ color: 'green', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                           </View>
-                          <View style={{width: width * 0.3, alignItems: 'center'}}>
-                            <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                          <View style={{ width: width * 0.3, alignItems: 'center' }}>
+                            <Text style={{ color: 'red', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                           </View>
                         </View>
                       )
@@ -437,14 +444,14 @@ function DetailLaporanScreen (props) {
                         return (
                           <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                              <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
+                              <Text style={{ fontWeight: '700', fontSize: width * 0.035 }}>{dat.nama}</Text>
+                              <Text style={{ fontSize: width * 0.035 }}>{dat.dateInput}</Text>
                             </View>
-                            <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                            <View style={{ width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24 }}>
+                              <Text style={{ color: 'green', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{ color: 'red', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )
@@ -453,16 +460,16 @@ function DetailLaporanScreen (props) {
                     if (selectedValue === 'Bulan') {
                       if (dateFormat(enddate, 'yyyy-mm') >= dateFormat(dat.dateInput, 'yyyy-mm') && dateFormat(dat.dateInput, 'yyyy-mm') >= dateFormat(startdate, 'yyyy-mm')) {
                         return (
-                          <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
-                            <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                              <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
+                          <View style={{ flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ width: width * 0.3, alignItems: 'center' }}>
+                              <Text style={{ fontWeight: '700', fontSize: width * 0.035 }}>{dat.nama}</Text>
+                              <Text style={{ fontSize: width * 0.035 }}>{dat.dateInput}</Text>
                             </View>
-                            <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                            <View style={{ width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24 }}>
+                              <Text style={{ color: 'green', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{ color: 'red', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )
@@ -473,14 +480,14 @@ function DetailLaporanScreen (props) {
                         return (
                           <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{fontWeight: '700'}}>{dat.nama}</Text>
-                              <Text style={{fontSize: 10}}>{dat.dateInput}</Text>
+                              <Text style={{ fontWeight: '700' }}>{dat.nama}</Text>
+                              <Text style={{ fontSize: width * 0.035 }}>{dat.dateInput}</Text>
                             </View>
                             <View style={{width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24}}>
-                              <Text style={{color: 'green', fontWeight: 'bold'}}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{ color: 'green', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'terima' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                             <View style={{width: width * 0.3, alignItems: 'center'}}>
-                              <Text style={{color: 'red', fontWeight: 'bold'}}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
+                              <Text style={{ color: 'red', fontWeight: 'bold', fontSize: width * 0.035 }}>{dat.jenis === 'berikan' ? currencyFormat(parseInt(dat.nominal)) : '-'}</Text>
                             </View>
                           </View>
                         )
@@ -489,17 +496,15 @@ function DetailLaporanScreen (props) {
                   })
                 })
               }
-
-          <View style={{height: height * 0.1}} />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
       <TouchableOpacity
         onPress={() => downloadPDF()}
         style={{
           position: 'absolute',
           bottom: 10,
           right: 5,
-          width: 200,
+          width: width * 0.5,
           height: 50,
           backgroundColor: '#FBB117',
           borderRadius: 20,
@@ -508,7 +513,7 @@ function DetailLaporanScreen (props) {
         }}>
         <Text
           style={{
-            color: 'white', fontSize: 16, fontWeight: '600'
+            color: 'white', fontSize: width * 0.035, fontWeight: '600'
           }}>
                 Unduh Laporan
               </Text>

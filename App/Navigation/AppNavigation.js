@@ -13,10 +13,11 @@ import LaunchScreen from '../Containers/LaunchScreen'
 import UtangPiutang from '../Containers/UtangPiutang'
 
 import styles from './Styles/NavigationStyles'
-import { Text, View } from 'react-native'
+import { Text, View, Dimensions } from 'react-native'
 import { Image } from 'react-native-elements'
 import { Transition } from 'react-native-reanimated'
 
+const {width} = Dimensions.get('screen')
 const getTabBarIcon = (navigation) => {
   const { routeName } = navigation.state
   if (routeName === 'Home') {
@@ -44,7 +45,7 @@ const getTabBarIcon = (navigation) => {
             justifyContent: 'center',
             alignItems: 'center'
           }}>
-          <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+          <Text style={{ color: 'white', fontSize: width * 0.035, fontWeight: '' }}>
             {x}
           </Text>
         </View>
@@ -81,7 +82,7 @@ const TabNavigator = createMaterialTopTabNavigator({
       inactiveTintColor: 'gray',
       showIcon: true,
       style: {
-        backgroundColor: 'white'
+        backgroundColor: 'white', fontSize: width * 0.035
       }
     },
     tabBarPosition: 'bottom'

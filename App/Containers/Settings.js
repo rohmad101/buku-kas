@@ -48,9 +48,9 @@ function SettingsScreen (props) {
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => ActionPressed(item.name)}>
       <ListItem bottomDivider >
-        <Avatar title={item.name[0]} source={item.avatar_url && { uri: item.avatar_url }} size={24} />
+        <Avatar title={item.name[0]} source={item.avatar_url && { uri: item.avatar_url }} size={width * 0.08} />
         <ListItem.Content>
-          <ListItem.Title>{item.name}</ListItem.Title>
+          <ListItem.Title style={{fontSize: width * 0.035}}>{item.name}</ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
@@ -134,13 +134,13 @@ function SettingsScreen (props) {
               <Accessory />
             </Avatar>
             <View>
-              <Text>Usaha Saya</Text>
-              <Text>+62 {phone}</Text>
+              <Text style={{fontSize: width * 0.035}}>Usaha Saya</Text>
+              <Text style={{fontSize: width * 0.035}}>+62 {phone}</Text>
             </View>
           </View>
 
           <Text style={{
-            backgroundColor: '#2E86C1', padding: 8, paddingHorizontal: 12, color: 'white', borderRadius: 8
+            backgroundColor: '#2E86C1', padding: 8, paddingHorizontal: 12, color: 'white', borderRadius: 8, fontSize: width * 0.035
           }}>
                 Atur Profil
               </Text>
@@ -155,27 +155,27 @@ function SettingsScreen (props) {
           borderRadius: 8
         }}>
           <View style={{flexDirection: 'row', padding: 12}}>
-            <Text style={{color: 'white', fontWeight: '700'}}>Pembayaran Digital</Text>
-            <Text style={{backgroundColor: '#F4D03F', paddingHorizontal: 4, borderRadius: 12, marginLeft: 8, fontWeight: '700'}}>Gratis</Text>
+            <Text style={{color: 'white', fontWeight: '700', fontSize: width * 0.035}}>Pembayaran Digital</Text>
+            <Text style={{backgroundColor: '#F4D03F', paddingHorizontal: 4, borderRadius: 12, marginLeft: 8, fontWeight: '700', fontSize: width * 0.035}}>Gratis</Text>
           </View>
           <View style={{flexDirection: 'row', padding: 12, justifyContent: 'space-around'}}>
-            <View style={{flexDirection: 'column', padding: 12}}>
+            <View style={{flexDirection: 'column', padding: 12, alignItems: 'center'}}>
               <Image
                 source={{ uri: 'https://icon-library.com/images/cash-icon-png/cash-icon-png-27.jpg' }}
                 style={{ width: 40, height: 40 }}
                 PlaceholderContent={<ActivityIndicator />}
                 containerStyle={{backgroundColor: 'white', borderRadius: 24, padding: 2}}
                     />
-              <Text style={{color: 'white', fontWeight: '700'}}>Bayar</Text>
+              <Text style={{color: 'white', fontWeight: '700', fontSize: width * 0.035}}>Bayar</Text>
             </View>
-            <View style={{flexDirection: 'column', padding: 12}}>
+            <View style={{flexDirection: 'column', padding: 12, alignItems: 'center'}}>
               <Image
                 source={{ uri: 'https://image.flaticon.com/icons/png/512/69/69881.png' }}
                 style={{ width: 40, height: 40 }}
                 PlaceholderContent={<ActivityIndicator />}
                 containerStyle={{backgroundColor: 'white', borderRadius: 24, padding: 2}}
                       />
-              <Text style={{color: 'white', fontWeight: '700'}}>Tagih</Text>
+              <Text style={{color: 'white', fontWeight: '700', fontSize: width * 0.035}}>Tagih</Text>
             </View>
           </View>
         </View>
@@ -187,7 +187,8 @@ function SettingsScreen (props) {
         <Text style={{
           paddingHorizontal: 12,
           paddingTop: 24,
-          fontWeight: '700'
+          fontWeight: '700',
+          fontSize: width * 0.035
         }}>Media Sosial BukuKas</Text>
         <View style={{
           flexDirection: 'row', width: width, alignItems: 'center', paddingBottom: 8
@@ -197,12 +198,12 @@ function SettingsScreen (props) {
             light
             type='instagram'
                 />
-          <Text>@Bukukas</Text>
+          <Text style={{fontSize: width * 0.035}}>@Bukukas</Text>
           <SocialIcon
             light
             type='facebook'
                 />
-          <Text>@Bukukas</Text>
+          <Text style={{fontSize: width * 0.035}}>@Bukukas</Text>
         </View>
       </ScrollView>
     </View>

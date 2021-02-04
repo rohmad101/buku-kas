@@ -55,6 +55,7 @@
     "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-i18n": "2.0.14",
+    "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-pdf": "^6.2.2",
     "react-native-permissions": "^3.0.0",
     "react-native-reanimated": "^1.13.1",
