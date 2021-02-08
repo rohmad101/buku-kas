@@ -88,7 +88,7 @@ function HomeScreen (props) {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{width: width, height: height * 0.45 + 60}}>
+          <View style={{width: width, height: height * 0.8}}>
             {
               data.map((dataa, ix) => {
                 let current = dataa.history[0].dateInput

@@ -72,7 +72,7 @@ function Dashboard (props) {
       <ScrollView>
         <KeyboardAvoidingView behavior='position'>
           <View style={{backgroundColor: '#87ceeb', width: width, height: height * 0.25, maxHeight: 180, borderTopWidth: 1, borderColor: 'grey', alignItems: 'center', justifyContent: 'center'}}>
-            <View style={{width: width * 0.9, height: height * 0.225, maxHeight: 200, backgroundColor: 'white', borderRadius: 4}}>
+            <View style={{width: width * 0.9, height: height * 0.225, maxHeight: 150, backgroundColor: 'white', borderRadius: 4}}>
               <View style={{flexDirection: 'row', width: width, padding: 12}}>
                 <View style={{width: width * 0.45}}>
                   <View style={{flexDirection: 'row'}}>
@@ -136,7 +136,7 @@ function Dashboard (props) {
               onPress={() => setcategory('lunas')}
             >Lunas</Text>
           </View>
-          <View style={{width: width, height: height * 0.3 + 50, alignItems: 'center', marginTop: 12}}>
+          <View style={{width: width, height: height * 0.475, alignItems: 'center', marginTop: 12}}>
 
             <ScrollView
               ref={flatList}

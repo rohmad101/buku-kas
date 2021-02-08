@@ -231,7 +231,7 @@ function UtangPiutang (props) {
               <TextInput
                 placeholder='catatan'
                 onChangeText={text => setcatatan(text)}
-                keyboardType='numeric'
+                keyboardType='default'
             // placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
                 value={catatan}
                 multiline
