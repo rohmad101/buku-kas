@@ -11,7 +11,8 @@ export const reducers = combineReducers({
   // search: require('./SearchRedux').reducer,
   local: require('./DataLocalRedux').reducer,
   register: require('./RegisterRedux').reducer,
-  backup: require('./BackupRedux').reducer
+  backup: require('./BackupRedux').reducer,
+  listType: require('./ListTypeRedux').reducer,
 })
 
 export default () => {

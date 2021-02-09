@@ -427,7 +427,7 @@ function DetailLaporanScreen (props) {
                       return (
                         <View style={{flexDirection: 'row', width: width, alignItems: 'center', justifyContent: 'center'}}>
                           <View style={{width: width * 0.3, alignItems: 'center'}}>
-                            <Text style={{ fontWeight: '700', fontSize: width * 0.035 }}>{dat.nama}</Text>
+                            <Text style={{ fontWeight: '700', fontSize: width * 0.035 }}>{dat.type?dat.type:dat.nama}</Text>
                             <Text style={{ fontSize: width * 0.035 }}>{dat.dateInput}</Text>
                           </View>
                           <View style={{ width: width * 0.4, alignItems: 'center', backgroundColor: '#deffee', paddingVertical: 24 }}>

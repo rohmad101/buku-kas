@@ -42,6 +42,7 @@ const create = (baseURL = URL) => {
   const registerUser = (payload) => api.post('api/mt/register_user', payload)
   const getbackup = (payload) => api.post('api/mt/backup_user_data', payload)
   const getPdf = (payload) => api.post('api/mt/dynamic_pdf/pdf', payload)
+  const getListTypeCatatan = (payload) => api.get('api/mt/list_type',{ "is_expense": 0 })
   // ------
   // STEP 3
   // ------
@@ -61,7 +62,8 @@ const create = (baseURL = URL) => {
     // getUser
     registerUser,
     getbackup,
-    getPdf
+    getPdf,
+    getListTypeCatatan
   }
 }
 

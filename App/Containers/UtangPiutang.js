@@ -1,15 +1,19 @@
 // @flow
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, Dimensions, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native'
+import { Picker } from '@react-native-community/picker'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import DataLocalRedux from '../Redux/DataLocalRedux'
 import CurrencyInput from 'react-native-currency-input'
+import DateTimePicker from '@react-native-community/datetimepicker'
 // I18n
 import { CheckBox, Header, Icon } from 'react-native-elements'
 import { bindActionCreators } from 'redux'
+
+import ListTypeRedux from '../Redux/ListTypeRedux'
 
 function UtangPiutang (props) {
   const {width, height} = Dimensions.get('screen')
@@ -18,6 +22,25 @@ function UtangPiutang (props) {
   const [value, setValue] = useState('')
   const [catatan, setcatatan] = useState('')
   const [submitted, setsubmitted] = useState(true)
+  const [type, setType] = useState()
+  const [typeLainnya, settypeLainnya] = useState()
+  const [startdate, setstartdate] = useState(new Date())
+  const [showStartDate, setShowStartDate] = useState(false)
+  const [collection, setCollection] = useState([])
+
+  useEffect(()=>{
+    props.listTypeRequest()
+  },[])
+
+  useEffect(()=>{
+    // console.log(props.listType)
+    setCollection(props.listType)
+  },[props.listType])
+  const onChangeStart = (event, selectedDate) => {
+    const currentDate = selectedDate || new Date()
+    setShowStartDate(false)
+    setstartdate(currentDate)
+  }
 
   const Submit = () => {
     setsubmitted(false)
@@ -56,7 +79,8 @@ function UtangPiutang (props) {
                'nominal': value,
                'jenis': stat,
                'catatan': catatan,
-               'dateInput': new Date().toLocaleDateString()
+               'dateInput': startdate.toLocaleDateString(),
+               'type':type==='Lain-lain'?typeLainnya:type
              }
            ]
        : [
@@ -65,7 +89,8 @@ function UtangPiutang (props) {
            'nominal': value,
            'jenis': stat,
            'catatan': catatan,
-           'dateInput': new Date().toLocaleDateString()
+           'dateInput': startdate.toLocaleDateString(),
+           'type':type==='Lain-lain'?typeLainnya:type
          }
        ]
           let dataa = {
@@ -73,8 +98,9 @@ function UtangPiutang (props) {
             'nominal': nominal,
             'jenis': stat2,
             'history': his,
-            'firstUpdata': selectedData.length > 0 ? selectedData[0].firstUpdata : new Date().toLocaleDateString(),
-            'lastUpdate': new Date().toLocaleDateString()
+            'firstUpdata': selectedData.length > 0 ? selectedData[0].firstUpdata : startdate.toLocaleDateString(),
+            'lastUpdate': startdate.toLocaleDateString(),
+            'type':type==='Lain-lain'?typeLainnya:type
 
           }
           val[selectedData[1]] = dataa
@@ -96,11 +122,12 @@ function UtangPiutang (props) {
                   'nominal': value,
                   'jenis': selected,
                   'catatan': catatan,
-                  'dateInput': new Date().toLocaleDateString()
+                  'dateInput': startdate.toLocaleDateString(),
+                  'type':type==='Lain-lain'?typeLainnya:type
                 }
               ],
-              firstUpdata: new Date().toLocaleDateString(),
-              lastUpdate: new Date().toLocaleDateString()
+              firstUpdata: startdate.toLocaleDateString(),
+              lastUpdate: startdate.toLocaleDateString()
             }
           ])
           props.navigation.goBack()
@@ -117,11 +144,12 @@ function UtangPiutang (props) {
                 'nominal': value,
                 'jenis': selected,
                 'catatan': catatan,
-                'dateInput': new Date().toLocaleDateString()
+                'dateInput': startdate.toLocaleDateString(),
+                'type':type==='Lain-lain'?typeLainnya:type
               }
             ],
-            firstUpdata: new Date().toLocaleDateString(),
-            lastUpdate: new Date().toLocaleDateString()
+            firstUpdata: startdate.toLocaleDateString(),
+            lastUpdate: startdate.toLocaleDateString()
           }
         ])
         setsubmitted(true)
@@ -133,8 +161,8 @@ function UtangPiutang (props) {
     }
   }
   return (
-    <KeyboardAwareScrollView extraScrollHeight={400}>
-      <View style={[{height: height, width: width, flexDirection: 'column', alignItems: 'center'}]}>
+    <KeyboardAwareScrollView extraScrollHeight={height*0.5}>
+      <View style={[{height: type==='Lain-lain'?height*1.15:height*1.05, width: width, flexDirection: 'column', alignItems: 'center'}]}>
         <Header
           placement='left'
           leftComponent={<Icon name='arrow-back' color='white' onPress={() => props.navigation.pop()} />}
@@ -172,7 +200,7 @@ function UtangPiutang (props) {
             </TouchableOpacity>
           </View>
           <View style={{
-            margin: 12, borderWidth: 1, borderColor: '#3498DB', height: 100, borderRadius: 8, flexDirection: 'row', backgroundColor: '#F7FCFF', justifyContent: 'space-around', alignItems: 'center', paddingHorizontal: 16}}>
+            width:width*0.94,margin: 12, borderWidth: 1, borderColor: '#3498DB', height: 100, borderRadius: 8, flexDirection: 'row', backgroundColor: '#F7FCFF', justifyContent: 'space-around', alignItems: 'center', paddingHorizontal: 16}}>
             <Icon name='account-circle' color='blue' size={32} />
             <View style={{flexDirection: 'column'}}>
               <TextInput
@@ -181,7 +209,6 @@ function UtangPiutang (props) {
                 placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
                 value={pelanggan}
                 numberOfLines={1}
-
                 maxLength={40}
                 style={{borderBottomWidth: 0.7, width: width * 0.75, height: 48, color: selected === 'berikan' ? 'red' : 'green', fontSize: width * 0.035}}
               />
@@ -223,6 +250,50 @@ function UtangPiutang (props) {
             </View>
           </View>
           <View style={{
+            width: width*0.9, alignItems: 'flex-start', marginHorizontal: 20,marginTop: 32, borderWidth:0.7, borderRadius:12
+          }}>
+            <TouchableOpacity
+              onPress={() => setShowStartDate(true)}
+              style={{flexDirection: 'row', alignItems: 'center', width: width * 0.35, justifyContent: 'space-between', margin:20,}}>
+              <Icon name='date-range' color='blue' />
+              <View style={{flexDirection: 'column'}}>
+                <Text style={{fontSize: width * 0.035}}>Tanggal Mulai</Text>
+                <Text style={{fontSize: width * 0.035}}>{startdate.toLocaleDateString()}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{
+            width: width*0.9, flexDirection: 'column', alignItems: 'flex-start', marginHorizontal: 20, borderWidth:0.7, borderRadius:12,marginTop: 24
+          }}>
+            <Text style={{fontSize: width * 0.035,marginTop: 8, paddingHorizontal:20}}>Type</Text>
+            <Picker
+                selectedValue={type}
+                style={{height: 50, minWidth:200, marginLeft:12}}
+                onValueChange={(itemValue, itemIndex) =>
+                  setType(itemValue)
+                }>
+                  {
+                    collection.length>0 && collection.map(data =>(
+                      <Picker.Item label={data.category} value={data.category} />
+                    ))
+                  }
+                {/* <Picker.Item label="Lainnya" value="Lain-lain" /> */}
+            </Picker>
+            {
+              type ==='Lain-lain' ?
+              <TextInput
+                placeholder='Type'
+                onChangeText={text => settypeLainnya(text)}
+                keyboardType='default'
+            // placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
+                value={typeLainnya}
+                multiline
+                style={{borderWidth: 0.7, borderRadius:12 , width: width * 0.84, minHeight: 50, maxHeight: 50, color: 'black', fontSize: width * 0.035, margin:12}}
+              />:null
+            }
+            
+          </View>
+          <View style={{
             width: width, flexDirection: 'row', alignItems: 'center'
           }}>
             {/* <Icon name='chevron-right' color={selected === 'berikan' ? 'red' : 'green'} size={30} style={{width: 40}} /> */}
@@ -235,33 +306,44 @@ function UtangPiutang (props) {
             // placeholderTextColor={selected === 'berikan' ? 'red' : 'green'}
                 value={catatan}
                 multiline
-                style={{borderWidth: 0.7, width: width * 0.875, minHeight: 150, maxHeight: 400, color: 'black', fontSize: width * 0.035, margin: 20}}
+                style={{borderWidth: 0.7, width: width * 0.875, minHeight: 150, maxHeight: 400, color: 'black', fontSize: width * 0.035, margin: 20, borderRadius:12}}
             />
             </View>
           </View>
-          <View style={{width: width, alignItems: 'center', paddingBottom: 20}}>
+          <View style={{width: width, alignItems: 'center', marginBottom: height*0.1}}>
             <TouchableOpacity
               onPress={() => submitted ? Submit() : null}
-              style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 4, fontSize: width * 0.035 }}>
+              style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: 48, justifyContent: 'center', alignItems: 'center', borderRadius: 8, fontSize: width * 0.035 }}>
               <Text style={{color: 'white', fontWeight: '700'}}>Simpan Utang Piutang</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
-
       </View>
 
+      {showStartDate && (
+          <DateTimePicker
+            testID='dateTimePicker'
+            value={startdate}
+            mode={'date'}
+            is24Hour
+            display='default'
+            onChange={onChangeStart}
+            style={{fontSize: width * 0.035}}
+              />
+            )}
     </KeyboardAwareScrollView>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    data: state.local.payload
+    data: state.local.payload,
+    listType: state.listType.payload
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(Object.assign(DataLocalRedux), dispatch)
+  return bindActionCreators(Object.assign(DataLocalRedux,ListTypeRedux), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UtangPiutang)
