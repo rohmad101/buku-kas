@@ -192,6 +192,8 @@ function Dashboard (props) {
                 )
                 : <Text style={{fontSize: 20}}>Transaksi Tidak Ditemukan</Text>
               }
+
+              <View style={{height:height*0.1}}/>
             </ScrollView>
           </View>
 

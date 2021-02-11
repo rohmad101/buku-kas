@@ -497,6 +497,8 @@ function DetailLaporanScreen (props) {
                 })
               }
         </View>
+
+        <View style={{height:height*0.1}}/>
       </ScrollView>
       <TouchableOpacity
         onPress={() => downloadPDF()}

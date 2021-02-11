@@ -88,7 +88,7 @@ function HomeScreen (props) {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{width: width, height: height * 0.8}}>
+          <View style={{width: width}}>
             {
               data.map((dataa, ix) => {
                 let current = dataa.history[0].dateInput
@@ -126,6 +126,7 @@ function HomeScreen (props) {
               })
             }
             {/* <Text>{history}</Text> */}
+            <View style={{height:height*0.1}}/>
           </View>
         </ScrollView>
         {/* floating button at bottom */}
