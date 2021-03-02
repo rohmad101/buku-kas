@@ -419,7 +419,7 @@ function DetailLaporanScreen (props) {
             <Text style={{color: 'grey', fontSize: width * 0.035}}>{totalTransaksiPengeluaran} Transaksi</Text>
           </View>
         </View>
-        <View style={{width: width, height: selectedValue === 'Semua' ? height * 0.45 + 50 : height * 0.5, flexDirection: 'column'}}>
+        <View style={{width: width, height: undefined, flexDirection: 'column'}}>
           {
                 data.map((data) => {
                   return data.history.map((dat) => {

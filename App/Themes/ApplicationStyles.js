@@ -22,7 +22,7 @@ const ApplicationStyles = {
     container: {
       flex: 1,
       width: width,
-      height: height
+      height: undefined
     },
     section: {
       margin: Metrics.section,

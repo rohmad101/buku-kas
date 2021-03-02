@@ -69,7 +69,12 @@ function Dashboard (props) {
             <Text style={{backgroundColor: 'grey', padding: 2, paddingHorizontal: 4, marginHorizontal: 4, borderRadius: 16, color: 'white'}}>0</Text>
           </View>}
       />
-      <ScrollView>
+      <ScrollView 
+      ref={flatList}
+      onContentSizeChange={() => {
+        flatList.current.scrollToEnd()
+      }}
+      >
         <KeyboardAvoidingView behavior='position'>
           <View style={{backgroundColor: '#87ceeb', width: width, height: height * 0.25, maxHeight: 180, borderTopWidth: 1, borderColor: 'grey', alignItems: 'center', justifyContent: 'center'}}>
             <View style={{width: width * 0.9, height: height * 0.225, maxHeight: 150, backgroundColor: 'white', borderRadius: 4}}>
@@ -102,7 +107,7 @@ function Dashboard (props) {
             </View>
           </View>
 
-          <View style={{marginTop: 4, flexDirection: 'row', alignItems: 'center', padding: 12, justifyContent: 'space-between'}}>
+          <View style={{marginTop: 4, flexDirection: 'row', alignItems: 'center', padding: 12, justifyContent: 'space-between', height:undefined}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               {visibleSearch ? null
                 : <Icon name='search' color='#1589FF' />
@@ -136,14 +141,7 @@ function Dashboard (props) {
               onPress={() => setcategory('lunas')}
             >Lunas</Text>
           </View>
-          <View style={{width: width, height: height * 0.475, alignItems: 'center', marginTop: 12}}>
-
-            <ScrollView
-              ref={flatList}
-              onContentSizeChange={() => {
-                flatList.current.scrollToEnd()
-              }}
-            >
+          <View style={{width: width, height: undefined, alignItems: 'center', marginTop: 12}}>
               {data && data.length > 0
 
                 ? data.map((dat, index) => (
@@ -194,7 +192,6 @@ function Dashboard (props) {
               }
 
               <View style={{height:height*0.1}}/>
-            </ScrollView>
           </View>
 
           {/* <Text>Dashboard Container</Text>

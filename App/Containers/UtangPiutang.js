@@ -161,8 +161,8 @@ function UtangPiutang (props) {
     }
   }
   return (
-    <KeyboardAwareScrollView extraScrollHeight={height*0.5}>
-      <View style={[{height: type==='Lain-lain'?height*1.15:height*1.05, width: width, flexDirection: 'column', alignItems: 'center'}]}>
+    <KeyboardAwareScrollView>
+      <View style={[{height: undefined, width: width, flexDirection: 'column', alignItems: 'center'}]}>
         <Header
           placement='left'
           leftComponent={<Icon name='arrow-back' color='white' onPress={() => props.navigation.pop()} />}
@@ -170,8 +170,8 @@ function UtangPiutang (props) {
 
         />
 
-        <ScrollView>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around', width: width, padding: 12}}>
+        <ScrollView style={{height: undefined}}> 
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', width: width, padding: 12, height:undefined}}>
             <TouchableOpacity
               onPress={() => setselected('berikan')}
               style={{width: width * 0.45, alignItems: 'center', flexDirection: 'row', backgroundColor: selected === 'berikan' ? 'red' : 'lightgray', padding: 4, borderRadius: 4}}>
@@ -310,13 +310,14 @@ function UtangPiutang (props) {
             />
             </View>
           </View>
-          <View style={{width: width, alignItems: 'center', marginBottom: height*0.1}}>
+          <View style={{width: width, alignItems: 'center'}}>
             <TouchableOpacity
               onPress={() => submitted ? Submit() : null}
-              style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: 48, justifyContent: 'center', alignItems: 'center', borderRadius: 8, fontSize: width * 0.035 }}>
+              style={{ width: width * 0.9, backgroundColor: '#ffbf00', height: height*0.05, justifyContent: 'center', alignItems: 'center', borderRadius: 8, fontSize: width * 0.035 }}>
               <Text style={{color: 'white', fontWeight: '700'}}>Simpan Utang Piutang</Text>
             </TouchableOpacity>
           </View>
+          <View style={{height:24}}/>
         </ScrollView>
       </View>
 
